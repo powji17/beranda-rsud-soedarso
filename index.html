@@ -4,46 +4,54 @@
 {{ $runningText := .Site.Params.running_text }}
 {{ if $runningText }}
 <div class="w-full max-w-full p-4 bg-white border border-gray-300 rounded shadow">
-    <div class="marquee">
-        <div class="marquee-text">
-            <p class="text-lg font-semibold text-black" style="font-size: 0.9rem;">{{ range $runningText }}{{ .text }}&nbsp;&nbsp;&nbsp;&nbsp;    {{ end }}</p>
-        </div>
+  <div class="marquee">
+    <div class="marquee-text">
+      <p class="text-lg font-semibold text-black" style="font-size: 0.9rem;">{{ range $runningText }}{{ .text
+        }}&nbsp;&nbsp;&nbsp;&nbsp; {{ end }}</p>
     </div>
+  </div>
 </div>
 {{ end }}
 
 <style>
-    .marquee {
-        overflow: hidden;
-        white-space: nowrap;
-        box-sizing: border-box;
-    }
-    .marquee-text {
-        display: inline-block;
-        padding-left: 100%;
-        animation: marquee 20s linear infinite;
+  .marquee {
+    overflow: hidden;
+    white-space: nowrap;
+    box-sizing: border-box;
+  }
+
+  .marquee-text {
+    display: inline-block;
+    padding-left: 100%;
+    animation: marquee 20s linear infinite;
+  }
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(0);
     }
 
-    @keyframes marquee {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-100%); }
+    100% {
+      transform: translateX(-100%);
     }
+  }
 
-    /* CSS styling for Swiper */
-    .swiper-slide {
-        text-align: center;
-        font-size: 18px;
-        background: #fff;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    .swiper-slide img {
-        display: block;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
+  /* CSS styling for Swiper */
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 
 
 
@@ -58,19 +66,18 @@
   .zoom-in:hover {
     transform: scale(1.1);
   }
-
 </style>
 <!-- Swiper -->
 
 {{ $sliderImages := .Site.Params.sliders.images }}
 
 {{ if len $sliderImages }}
-<div class="swiper mySwiper" > <!--ada bagian yang terpotong-->
+<div class="swiper mySwiper"> <!--ada bagian yang terpotong-->
   <div class="swiper-wrapper">
     {{ range $sliderImages }}
-      <div class="swiper-slide">
-        <img src="sliders/{{ .url }}" alt="Slider Image" style="width:100%">
-      </div>
+    <div class="swiper-slide">
+      <img src="sliders/{{ .url }}" alt="Slider Image" style="width:100%">
+    </div>
     {{ end }}
   </div>
   <div class="swiper-button-next"></div>
@@ -78,20 +85,20 @@
   <div class="swiper-pagination"></div>
 </div>
 {{ end }}
-  <!-- Initialize Swiper -->
-  <script>
+<!-- Initialize Swiper -->
+<script>
   document.addEventListener('DOMContentLoaded', () => {
-  // Pengumuman
-  new Swiper(".mySwiper", {
-    slidesPerView: 1,
-    loop: true,
-    autoplay: { delay: 3000 },
-    pagination: { el: ".mySwiper .swiper-pagination", clickable: true },
-    navigation: {
-      nextEl: ".mySwiper .swiper-button-next",
-      prevEl: ".mySwiper .swiper-button-prev"
-    }
-  });
+    // Pengumuman
+    new Swiper(".mySwiper", {
+      slidesPerView: 1,
+      loop: true,
+      autoplay: { delay: 3000 },
+      pagination: { el: ".mySwiper .swiper-pagination", clickable: true },
+      navigation: {
+        nextEl: ".mySwiper .swiper-button-next",
+        prevEl: ".mySwiper .swiper-button-prev"
+      }
+    });
 
 
   });
@@ -148,17 +155,18 @@
     <!-- Siranap -->
     <div class="flex flex-col w-full bg-white border-2 border-green-500 rounded-lg md:w-60 h-52">
       <div class="flex items-center justify-center">
-          {{ $page := .Site.GetPage "siranap" }}
-          {{ $recentImage := $page.RegularPages | first 1 }}
-          {{ range $recentImage }}
-            <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}">
-          {{ end }}
+        {{ $page := .Site.GetPage "siranap" }}
+        {{ $recentImage := $page.RegularPages | first 1 }}
+        {{ range $recentImage }}
+        <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}">
+        {{ end }}
       </div>
       <div class="flex flex-col justify-center flex-grow text-center bg-transparent">
         <p>Ketersediaan Kamar Rawat Inap</p>
         <div class="mt-2">
           <a href="https://itrsudsoedarso.kalbarprov.go.id/siranaponline/">
-            <button class="px-4 py-2 font-normal text-white border rounded bg-defaultColor hover:bg-white hover:text-black border-defaultColor hover:border-black">
+            <button
+              class="px-4 py-2 font-normal text-white border rounded bg-defaultColor hover:bg-white hover:text-black border-defaultColor hover:border-black">
               Lihat
             </button>
           </a>
@@ -170,16 +178,18 @@
     <div class="flex flex-col w-full bg-white border-2 border-green-500 rounded-lg md:w-60 h-52">
       <div class="flex items-center justify-center h-1/2">
         {{ $page := .Site.GetPage "pendaftaran-online" }}
-            {{ $recentImage := $page.RegularPages | first 1 }}
-            {{ range $recentImage }}
-              <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" style= "max-width: 100%; max-height: 100%; object-fit: cover;">
-            {{ end }}
+        {{ $recentImage := $page.RegularPages | first 1 }}
+        {{ range $recentImage }}
+        <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}"
+          style="max-width: 100%; max-height: 100%; object-fit: cover;">
+        {{ end }}
       </div>
       <div class="flex flex-col justify-center flex-grow text-center bg-transparent">
         <p>Pendaftaran Online</p>
         <div class="mt-2">
           <a href="https://itrsudsoedarso.kalbarprov.go.id/registrasionline/Login">
-            <button class="px-4 py-2 font-normal text-white border rounded bg-defaultColor hover:bg-white hover:text-black border-defaultColor hover:border-black">
+            <button
+              class="px-4 py-2 font-normal text-white border rounded bg-defaultColor hover:bg-white hover:text-black border-defaultColor hover:border-black">
               Lihat
             </button>
           </a>
@@ -191,16 +201,17 @@
     <div class="flex flex-col w-full border-2 border-green-500 rounded-lg md:w-60 h-52">
       <div class="flex items-center justify-center ">
         {{ $page := .Site.GetPage "jadwal-operasi" }}
-          {{ $recentImage := $page.RegularPages | first 1 }}
-          {{ range $recentImage }}
-            <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}">
-          {{ end }}
+        {{ $recentImage := $page.RegularPages | first 1 }}
+        {{ range $recentImage }}
+        <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}">
+        {{ end }}
       </div>
       <div class="flex flex-col justify-center flex-grow text-center bg-transparent rounded-b-lg">
         <p>Jadwal Operasi RSUD Soedarso</p>
         <div class="mt-2">
           <a href="https://itrsudsoedarso.kalbarprov.go.id/jadwaloperasi/Display/index/">
-            <button class="px-4 py-2 font-normal text-white border rounded bg-defaultColor hover:bg-white hover:text-black border-defaultColor hover:border-black">
+            <button
+              class="px-4 py-2 font-normal text-white border rounded bg-defaultColor hover:bg-white hover:text-black border-defaultColor hover:border-black">
               Lihat
             </button>
           </a>
@@ -223,13 +234,14 @@
       <h2 class="text-xl font-bold mb-4 text-center text-gray-800 dark:text-gray-100">{{ $frontBundle2 | title }}</h2>
       <div class="overflow-y-scroll max-h-96">
         {{ range first 9 (where .Site.RegularPages.ByDate.Reverse "Type" (urlize $frontBundle2)) }}
-          <div class="rounded-lg mb-2">
-            <div class="transition duration-500 content hover">{{- partial "blog-card.html" . -}}</div>
-          </div>
+        <div class="rounded-lg mb-2">
+          <div class="transition duration-500 content hover">{{- partial "blog-card.html" . -}}</div>
+        </div>
         {{ end }}
         <div class="rounded-lg">
           <div class="transition duration-500 content hover">
-            <a href='{{ absURL "/berita" }}' class="block text-center py-2 font-semibold text-blue-600 hover:underline">Selebihnya</a>
+            <a href='{{ absURL "/berita" }}'
+              class="block text-center py-2 font-semibold text-blue-600 hover:underline">Selebihnya</a>
           </div>
         </div>
       </div>
@@ -246,6 +258,14 @@
   </div>
 
   <!-- Buletin -->
+  <h2 class="text-2xl font-bold text-center mb-6">Buletin RSUD Dokter Soedarso</h2>
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div class="bg-gray-200 h-32 rounded-lg"></div>
+    <div class="bg-gray-200 h-32 rounded-lg"></div>
+    <div class="bg-gray-200 h-32 rounded-lg"></div>
+    <div class="bg-gray-200 h-32 rounded-lg"></div>
+  </div>
+
   <h2 class="text-2xl font-bold text-center mb-6">Buletin RSUD Dokter Soedarso</h2>
   <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
     <div class="bg-gray-200 h-32 rounded-lg"></div>
@@ -319,5 +339,5 @@
 
     -->
 
-  {{- partial "intro.html" . -}}
+{{- partial "intro.html" . -}}
 {{ end }}
