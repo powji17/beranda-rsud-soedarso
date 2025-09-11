@@ -1,59 +1,21 @@
 {{ define "main" }}
 
-<!-- Running Text -->
-{{ $runningText := .Site.Params.running_text }}
-{{ if $runningText }}
-<div class="w-full max-w-full p-4 bg-white border border-gray-300 rounded shadow">
-  <div class="marquee">
-    <div class="marquee-text">
-      <p class="text-lg font-semibold text-black" style="font-size: 0.9rem;">{{ range $runningText }}{{ .text
-        }}&nbsp;&nbsp;&nbsp;&nbsp; {{ end }}</p>
-    </div>
-  </div>
-</div>
-{{ end }}
-
 <style>
-  .marquee {
-    overflow: hidden;
-    white-space: nowrap;
-    box-sizing: border-box;
-  }
-
-  .marquee-text {
-    display: inline-block;
-    padding-left: 100%;
-    animation: marquee 20s linear infinite;
-  }
-
-  @keyframes marquee {
-    0% {
-      transform: translateX(0);
+    .marquee {
+        overflow: hidden;
+        white-space: nowrap;
+        box-sizing: border-box;
+    }
+    .marquee-text {
+        display: inline-block;
+        padding-left: 100%;
+        animation: marquee 20s linear infinite;
     }
 
-    100% {
-      transform: translateX(-100%);
+    @keyframes marquee {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-100%); }
     }
-  }
-
-  /* CSS styling for Swiper */
-  .swiper-slide {
-    text-align: center;
-    font-size: 18px;
-    background: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .swiper-slide img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-
 
   .container {
     white-space: nowrap;
@@ -66,49 +28,43 @@
   .zoom-in:hover {
     transform: scale(1.1);
   }
+
 </style>
-<!-- Swiper -->
 
-{{ $sliderImages := .Site.Params.sliders.images }}
-
-{{ if len $sliderImages }}
-<div class="swiper mySwiper"> <!--ada bagian yang terpotong-->
-  <div class="swiper-wrapper">
-    {{ range $sliderImages }}
-    <div class="swiper-slide">
-      <img src="sliders/{{ .url }}" alt="Slider Image" style="width:100%">
-    </div>
-    {{ end }}
-  </div>
-  <div class="swiper-button-next"></div>
-  <div class="swiper-button-prev"></div>
-  <div class="swiper-pagination"></div>
-</div>
-{{ end }}
 <!-- Initialize Swiper -->
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    // Pengumuman
-    new Swiper(".mySwiper", {
-      slidesPerView: 1,
-      loop: true,
-      autoplay: { delay: 3000 },
-      pagination: { el: ".mySwiper .swiper-pagination", clickable: true },
-      navigation: {
-        nextEl: ".mySwiper .swiper-button-next",
-        prevEl: ".mySwiper .swiper-button-prev"
-      }
-    });
-
-
+document.addEventListener('DOMContentLoaded', () => {
+new Swiper(".mySwiper", {
+  slidesPerView: 1,
+  loop: true,
+  autoplay: { delay: 3000 },
+  pagination: { el: ".mySwiper .swiper-pagination", clickable: true },
+  navigation: {
+    nextEl: ".mySwiper .swiper-button-next",
+    prevEl: ".mySwiper .swiper-button-prev"
+    }
+  });
   });
 </script>
 
-<!--
-<br>
-<h1 style="text-align: center; font-size: x-large;"><b> Dr. Soedarso Menyediakan <br> Pelayanan Unggulan Rujukan Nasional</b></h1>
-<br>
--->
+<!-- Judul Halaman dengan Video Background -->
+<section class="relative w-full" style="height: 75vh;">
+  <!-- Video Background -->
+  <video autoplay muted loop playsinline class="absolute top-0 left-0 w-full h-full object-cover">
+    <source src="video/bg-video.mp4" type="video/mp4">
+    Browser Anda tidak mendukung video tag.
+  </video>
+
+  <!-- Overlay -->
+  <div class="absolute inset-0" style="background: rgba(0,0,0,0.10);"></div>
+
+  <!-- Judul Utama -->
+  <div class="relative flex items-center justify-center h-full">
+    <h1 class="text-white text-3xl md:text-5xl font-bold text-center drop-shadow-lg">
+      Website Resmi<br>RSUD Dokter Soedarso
+    </h1>
+  </div>
+</section>
 
 <!-- ====== Layout Utama ====== -->
 <div class="max-w-6xl mx-auto px-4 py-8">
@@ -135,11 +91,11 @@
     <!-- Infografis -->
     <div class="bg-gray-200 p-6 rounded-lg shadow text-center mb-8">
       <h2 class="text-xl font-bold mb-4">Infografis</h2>
-      <div class="swiper infografisSwiper">
+      <div class="swiper mySwiper">
         <div class="swiper-wrapper">
-          {{ range first 5 (where .Site.RegularPages.ByDate.Reverse "Type" "infografis") }}
-          <div class="swiper-slide bg-white h-40 flex items-center justify-center rounded shadow">
-            <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="max-h-36 mx-auto">
+          {{ range first 5 (where .Site.RegularPages.ByDate.Reverse "Section" "infografis") }}
+          <div class="swiper-slide">
+            <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="rounded-lg shadow mx-auto max-h-40">
           </div>
           {{ end }}
         </div>
@@ -221,14 +177,13 @@
       <h2 class="text-xl font-bold mb-4 text-center text-gray-800 dark:text-gray-100">{{ $frontBundle2 | title }}</h2>
       <div class="overflow-y-scroll max-h-96">
         {{ range first 9 (where .Site.RegularPages.ByDate.Reverse "Type" (urlize $frontBundle2)) }}
-        <div class="rounded-lg mb-2">
-          <div class="transition duration-500 content hover">{{- partial "blog-card.html" . -}}</div>
-        </div>
+          <div class="rounded-lg mb-2">
+            <div class="transition duration-500 content hover">{{- partial "blog-card.html" . -}}</div>
+          </div>
         {{ end }}
         <div class="rounded-lg">
           <div class="transition duration-500 content hover">
-            <a href='{{ absURL "/berita" }}'
-              class="block text-center py-2 font-semibold text-blue-600 hover:underline">Selebihnya</a>
+            <a href='{{ absURL "/berita" }}' class="block text-center py-2 font-semibold text-blue-600 hover:underline">Selebihnya</a>
           </div>
         </div>
       </div>
@@ -318,5 +273,5 @@
 
     -->
 
-{{- partial "intro.html" . -}}
+  {{- partial "intro.html" . -}}
 {{ end }}
