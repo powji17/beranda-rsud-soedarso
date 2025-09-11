@@ -153,69 +153,56 @@
   <!--Redirect to another web-->
   <div class="flex flex-col items-center justify-center gap-8 mx-auto mb-10 md:flex-row md:gap-24">
     <!-- Siranap -->
-    <div class="flex flex-col w-full bg-white border-2 border-green-500 rounded-lg md:w-60 h-52">
-      <div class="flex items-center justify-center">
+    <div class="bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition">
+      <div class="bg-green-100 p-3 rounded-full mb-4 flex items-center justify-center">
         {{ $page := .Site.GetPage "siranap" }}
         {{ $recentImage := $page.RegularPages | first 1 }}
         {{ range $recentImage }}
-        <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}">
+        <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="h-20 w-20 object-contain">
         {{ end }}
       </div>
-      <div class="flex flex-col justify-center flex-grow text-center bg-transparent">
-        <p>Ketersediaan Kamar Rawat Inap</p>
-        <div class="mt-2">
-          <a href="https://itrsudsoedarso.kalbarprov.go.id/siranaponline/">
-            <button
-              class="px-4 py-2 font-normal text-white border rounded bg-defaultColor hover:bg-white hover:text-black border-defaultColor hover:border-black">
-              Lihat
-            </button>
-          </a>
-        </div>
+      <div class="flex-grow flex flex-col justify-between">
+        <h3 class="text-lg font-semibold text-gray-800">Ketersediaan Kamar Rawat Inap</h3>
+        <a href="https://itrsudsoedarso.kalbarprov.go.id/siranaponline/"
+          class="mt-4 px-5 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition">
+          Lihat
+        </a>
       </div>
     </div>
 
     <!-- Registrasi Online -->
-    <div class="flex flex-col w-full bg-white border-2 border-green-500 rounded-lg md:w-60 h-52">
-      <div class="flex items-center justify-center h-1/2">
+    <div class="bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition">
+      <div class="bg-green-100 p-3 rounded-full mb-4 flex items-center justify-center">
         {{ $page := .Site.GetPage "pendaftaran-online" }}
         {{ $recentImage := $page.RegularPages | first 1 }}
         {{ range $recentImage }}
-        <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}"
-          style="max-width: 100%; max-height: 100%; object-fit: cover;">
+        <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="h-20 w-20 object-contain">
         {{ end }}
       </div>
-      <div class="flex flex-col justify-center flex-grow text-center bg-transparent">
-        <p>Pendaftaran Online</p>
-        <div class="mt-2">
-          <a href="https://itrsudsoedarso.kalbarprov.go.id/registrasionline/Login">
-            <button
-              class="px-4 py-2 font-normal text-white border rounded bg-defaultColor hover:bg-white hover:text-black border-defaultColor hover:border-black">
-              Lihat
-            </button>
-          </a>
-        </div>
+      <div class="flex-grow flex flex-col justify-between">
+        <h3 class="text-lg font-semibold text-gray-800">Pendaftaran Online</h3>
+        <a href="https://itrsudsoedarso.kalbarprov.go.id/registrasionline/Login"
+          class="mt-4 px-5 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition">
+          Lihat
+        </a>
       </div>
     </div>
 
     <!-- Jadwal Operasi -->
-    <div class="flex flex-col w-full border-2 border-green-500 rounded-lg md:w-60 h-52">
-      <div class="flex items-center justify-center ">
+    <div class="bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition">
+      <div class="bg-green-100 p-3 rounded-full mb-4 flex items-center justify-center">
         {{ $page := .Site.GetPage "jadwal-operasi" }}
         {{ $recentImage := $page.RegularPages | first 1 }}
         {{ range $recentImage }}
-        <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}">
+        <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="h-20 w-20 object-contain">
         {{ end }}
       </div>
-      <div class="flex flex-col justify-center flex-grow text-center bg-transparent rounded-b-lg">
-        <p>Jadwal Operasi RSUD Soedarso</p>
-        <div class="mt-2">
-          <a href="https://itrsudsoedarso.kalbarprov.go.id/jadwaloperasi/Display/index/">
-            <button
-              class="px-4 py-2 font-normal text-white border rounded bg-defaultColor hover:bg-white hover:text-black border-defaultColor hover:border-black">
-              Lihat
-            </button>
-          </a>
-        </div>
+      <div class="flex-grow flex flex-col justify-between">
+        <h3 class="text-lg font-semibold text-gray-800">Jadwal Operasi RSUD Soedarso</h3>
+        <a href="https://itrsudsoedarso.kalbarprov.go.id/jadwaloperasi/Display/index/"
+          class="mt-4 px-5 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition">
+          Lihat
+        </a>
       </div>
     </div>
   </div>
