@@ -28,7 +28,6 @@
   .zoom-in:hover {
     transform: scale(1.1);
   }
-
 </style>
 
 <!-- Initialize Swiper -->
@@ -119,7 +118,7 @@ new Swiper(".mySwiper", {
       </div>
       <div class="flex-grow flex flex-col justify-between">
         <h3 class="text-lg font-semibold text-gray-800">Ketersediaan Kamar Rawat Inap</h3>
-        <a href="https://itrsudsoedarso.kalbarprov.go.id/siranaponline/" target="_blank"
+        <a href="https://itrsudsoedarso.kalbarprov.go.id/siranaponline/"
           class="mt-4 px-5 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition">
           Lihat
         </a>
@@ -137,7 +136,7 @@ new Swiper(".mySwiper", {
       </div>
       <div class="flex-grow flex flex-col justify-between">
         <h3 class="text-lg font-semibold text-gray-800">Pendaftaran Online</h3>
-        <a href="https://itrsudsoedarso.kalbarprov.go.id/registrasionline/Login" target="_blank"
+        <a href="https://itrsudsoedarso.kalbarprov.go.id/registrasionline/Login"
           class="mt-4 px-5 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition">
           Lihat
         </a>
@@ -155,7 +154,7 @@ new Swiper(".mySwiper", {
       </div>
       <div class="flex-grow flex flex-col justify-between">
         <h3 class="text-lg font-semibold text-gray-800">Jadwal Operasi RSUD Soedarso</h3>
-        <a href="https://itrsudsoedarso.kalbarprov.go.id/jadwaloperasi/Display/index/" target="_blank"
+        <a href="https://itrsudsoedarso.kalbarprov.go.id/jadwaloperasi/Display/index/"
           class="mt-4 px-5 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition">
           Lihat
         </a>
@@ -168,24 +167,65 @@ new Swiper(".mySwiper", {
     <!-- Agenda -->
     <div class="bg-gray-200 p-6 rounded-lg shadow">
       <h2 class="text-xl font-bold mb-4">Agenda</h2>
-      <div class="bg-white h-40 flex items-center justify-center rounded shadow">...</div>
+      <div class="bg-white rounded shadow max-h-96 overflow-y-auto p-4">
+        {{ range first 10 (where .Site.RegularPages.ByDate "Section" "agenda") }}
+          <div class="agenda-item mb-4 pb-2 border-b last:border-b-0">
+            <!-- Konten -->
+            <div class="agenda-content">
+              <h3 class="font-semibold text-gray-800">{{ .Title }}</h3>
+              <p class="text-sm text-gray-600 flex items-center">
+                🕒 {{ .Params.time }}
+              </p>
+              <p class="text-sm text-gray-600 flex items-center">
+                📍 {{ .Params.location }}
+              </p>
+              <p class="text-sm text-gray-600 flex items-center">
+                👤 {{ .Params.organizer }}
+              </p>
+            </div>
+          </div>
+        {{ end }}
+      </div>
     </div>
 
     <!-- Berita -->
     <div class="bg-gray-200 p-6 rounded-lg shadow">
-      {{ $frontBundle2 := .Site.Params.frontBundle2 | default "Berita" }}
-      <h2 class="text-xl font-bold mb-4 text-center text-gray-800 dark:text-gray-100">{{ $frontBundle2 | title }}</h2>
-      <div class="overflow-y-scroll max-h-96">
-        {{ range first 9 (where .Site.RegularPages.ByDate.Reverse "Type" (urlize $frontBundle2)) }}
-          <div class="rounded-lg mb-2">
-            <div class="transition duration-500 content hover">{{- partial "blog-card.html" . -}}</div>
-          </div>
-        {{ end }}
-        <div class="rounded-lg">
-          <div class="transition duration-500 content hover">
-            <a href='{{ absURL "/berita" }}' class="block text-center py-2 font-semibold text-blue-600 hover:underline">Selebihnya</a>
-          </div>
+      <h2 class="text-xl font-bold mb-4 text-center text-gray-800">Berita</h2>
+
+      {{ $berita := first 5 (where .Site.RegularPages.ByDate.Reverse "Section" "berita") }}
+  
+      {{ if gt (len $berita) 0 }}
+        <!-- Berita Utama -->
+        {{ $utama := index $berita 0 }}
+        <div class="mb-6">
+          <a href="{{ $utama.RelPermalink }}" class="block group">
+            <div class="relative rounded-lg overflow-hidden shadow-lg">
+              <img src="{{ $utama.Params.thumbnail }}" alt="{{ $utama.Title }}" class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300">
+              <div class="absolute inset-0 bg-black/40 flex items-end">
+                <h3 class="text-white text-xl font-bold p-4">{{ $utama.Title }}</h3>
+              </div>
+            </div>
+          </a>
         </div>
+      {{ end }}
+
+      <!-- 4 Berita Lainnya -->
+      <div class="grid grid-cols-2 gap-4">
+        {{ range after 1 $berita }}
+          <a href="{{ .RelPermalink }}" class="block group">
+            <div class="rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
+              <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="w-full h-28 object-cover group-hover:scale-105 transition-transform duration-300">
+              <div class="p-2">
+                <h4 class="text-sm font-semibold text-gray-800 line-clamp-2">{{ .Title }}</h4>
+              </div>
+            </div>
+          </a>
+        {{ end }}
+      </div>
+
+      <!-- Link ke halaman berita -->
+      <div class="mt-4 text-center">
+        <a href="{{ absURL "/berita" }}" class="text-blue-600 font-semibold hover:underline">Lihat Semua Berita</a>
       </div>
     </div>
   </div>
