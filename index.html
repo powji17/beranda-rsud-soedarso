@@ -103,49 +103,47 @@ new Swiper(".mySwiper", {
 
 <!-- ====== Layout Utama ====== -->
 <div class="max-w-6xl mx-auto px-4 py-8">
-  
-    <!-- Baris: Pengumuman & Infografis -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-        <!-- Pengumuman -->
-        <div class="border-2 border-green-500 rounded-lg bg-white p-6 text-center">
-            <h2 class="text-2xl font-extrabold text-green-700 uppercase tracking-wide">
-                Pengumuman
-            </h2>
-            <div class="w-12 h-1 bg-yellow-400 mt-1 mb-4 mx-auto rounded"></div>
-            
-            <div class="swiper mySwiper">
-                <div class="swiper-wrapper">
-                    {{ $files := readDir "static/pengumuman" }}
-                    {{ range $files }}
-                    <div class="swiper-slide">
-                        <img src="/pengumuman/{{ .Name }}" alt="{{ .Name }}" class="w-full h-80 object-contain rounded-lg mx-auto">
-                    </div>
-                    {{ end }}
-                </div>
-                <div class="swiper-pagination mt-2"></div>
-            </div>
-        </div>
 
-        <!-- Infografis -->
-        <div class="border-2 border-green-500 rounded-lg bg-white p-6 text-center">
-            <h2 class="text-2xl font-extrabold text-green-700 uppercase tracking-wide">
-                Infografis
-            </h2>
-            <div class="w-12 h-1 bg-yellow-400 mt-1 mb-4 mx-auto rounded"></div>
-            
-            <div class="swiper mySwiper">
-                <div class="swiper-wrapper">
-                    {{ $files := readDir "static/laporan-ikm/thumbnails" }}
-                    {{ range $files }}
-                    <div class="swiper-slide">
-                        <img src="/laporan-ikm/thumbnails/{{ .Name }}" alt="{{ .Name }}" class="w-full h-80 object-contain rounded-lg mx-auto">
-                    </div>
-                    {{ end }}
-                </div>
-                <div class="swiper-pagination mt-2"></div>
-            </div>
+  <!-- Baris: Pengumuman & Infografis -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+    <!-- Pengumuman -->
+    <div class="border-2 border-green-500 rounded-lg bg-white p-6 text-center">
+      <h2 class="text-2xl font-extrabold text-green-700 uppercase tracking-wide">
+        Pengumuman
+      </h2>
+      <div class="w-12 h-1 bg-yellow-400 mt-1 mb-4 mx-auto rounded"></div>  
+      <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+          {{ $files := readDir "static/pengumuman" }}
+          {{ range $files }}
+          <div class="swiper-slide">
+            <img src="/pengumuman/{{ .Name }}" alt="{{ .Name }}" class="w-full h-80 object-contain rounded-lg mx-auto">
+          </div>
+          {{ end }}
         </div>
+        <div class="swiper-pagination mt-2"></div>
+      </div>
     </div>
+
+    <!-- Infografis -->
+    <div class="border-2 border-green-500 rounded-lg bg-white p-6 text-center">
+      <h2 class="text-2xl font-extrabold text-green-700 uppercase tracking-wide">
+        Infografis
+      </h2>
+      <div class="w-12 h-1 bg-yellow-400 mt-1 mb-4 mx-auto rounded"></div>  
+      <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+          {{ $files := readDir "static/laporan-ikm/thumbnails" }}
+          {{ range $files }}
+          <div class="swiper-slide">
+            <img src="/laporan-ikm/thumbnails/{{ .Name }}" alt="{{ .Name }}" class="w-full h-80 object-contain rounded-lg mx-auto">
+          </div>
+          {{ end }}
+        </div>
+        <div class="swiper-pagination mt-2"></div>
+      </div>
+    </div>
+  </div>
 
   <!--Redirect to another web-->
   <div class="flex flex-col items-center justify-center gap-8 mx-auto mb-10 md:flex-row md:gap-24">
@@ -209,8 +207,8 @@ new Swiper(".mySwiper", {
     <!-- Agenda -->
     <div class="border-2 border-green-500 rounded-lg overflow-hidden p-4">
       <div class="flex flex-col items-center mb-6">
-        <h2 class="text-2xl font-bold text-gray-900">Agenda</h2>
-        <div class="w-12 h-1 bg-yellow-400 mt-2"></div>
+        <h2 class="text-2xl font-extrabold text-green-700 uppercase tracking-wide">Agenda</h2>
+        <div class="w-12 h-1 bg-yellow-400 mt-1 mb-4 mx-auto rounded"></div>
       </div>
 
       <!-- Agenda Card -->
@@ -285,15 +283,13 @@ new Swiper(".mySwiper", {
           transform: translateY(-5px);
         }
       </style>
-
-
     </div>
 
     <!-- Berita -->
     <div class="border-2 border-green-500 rounded-lg overflow-hidden p-4">
       <div class="flex flex-col items-center">
-        <h2 class="text-2xl font-bold text-gray-900">BERITA TERBARU</h2>
-        <div class="w-12 h-1 bg-yellow-400 mt-2"></div>
+        <h2 class="text-2xl font-extrabold text-green-700 uppercase tracking-wide">BERITA TERBARU</h2>
+        <div class="w-12 h-1 bg-yellow-400 mt-1 mb-4 mx-auto rounded"></div>
       </div>
       <div class="mt-6">
         {{ $news := .Site.GetPage "berita" }}
