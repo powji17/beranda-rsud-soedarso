@@ -112,7 +112,7 @@ new Swiper(".mySwiper", {
         Pengumuman
       </h2>
       <div class="w-12 h-1 bg-yellow-400 mt-1 mb-4 mx-auto rounded"></div>  
-      <div class="swiper mySwiper">
+      <div class="swiper mySwiper relative group">
         <div class="swiper-wrapper">
           {{ $files := readDir "static/pengumuman" }}
           {{ range $files }}
@@ -122,6 +122,9 @@ new Swiper(".mySwiper", {
           {{ end }}
         </div>
         <div class="swiper-pagination mt-2"></div>
+        <!-- Tombol Next/Prev -->
+        <div class="swiper-button-next opacity-0 group-hover:opacity-100 transition duration-300"></div>
+        <div class="swiper-button-prev opacity-0 group-hover:opacity-100 transition duration-300"></div>
       </div>
     </div>
 
@@ -131,7 +134,7 @@ new Swiper(".mySwiper", {
         Infografis
       </h2>
       <div class="w-12 h-1 bg-yellow-400 mt-1 mb-4 mx-auto rounded"></div>  
-      <div class="swiper mySwiper">
+      <div class="swiper mySwiper relative group">
         <div class="swiper-wrapper">
           {{ $files := readDir "static/laporan-ikm/thumbnails" }}
           {{ range $files }}
@@ -141,6 +144,9 @@ new Swiper(".mySwiper", {
           {{ end }}
         </div>
         <div class="swiper-pagination mt-2"></div>
+        <!-- Tombol Next/Prev -->
+        <div class="swiper-button-next opacity-0 group-hover:opacity-100 transition duration-300"></div>
+        <div class="swiper-button-prev opacity-0 group-hover:opacity-100 transition duration-300"></div>
       </div>
     </div>
   </div>
