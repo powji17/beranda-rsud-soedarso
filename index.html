@@ -104,43 +104,49 @@ new Swiper(".mySwiper", {
 <!-- ====== Layout Utama ====== -->
 <div class="max-w-6xl mx-auto px-4 py-8">
 
-  <!-- Baris: Pengumuman & Infografis -->
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-    <!-- Pengumuman -->
-    <div class="bg-gray-200 p-6 rounded-lg shadow text-center mb-8">
-      <h2 class="text-xl font-bold mb-4">Pengumuman</h2>
-      <div class="swiper mySwiper">
-        <div class="swiper-wrapper">
-          {{ range first 5 (where .Site.RegularPages.ByDate.Reverse "Section" "pengumuman") }}
-          <div class="swiper-slide">
-            <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="rounded-lg shadow mx-auto max-h-40">
-          </div>
-          {{ end }}
+    <!-- Baris: Pengumuman & Infografis -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <!-- Pengumuman -->
+        <div class="bg-white p-6 text-center  rounded-xl">
+            <h2 class="text-2xl font-extrabold text-green-700 uppercase tracking-wide">
+                Pengumuman
+            </h2>
+            <div class="w-12 h-1 bg-yellow-400 mt-1 mb-4 mx-auto rounded"></div>
+            
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    {{ $files := readDir "static/pengumuman" }}
+                    {{ range $files }}
+                    <div class="swiper-slide">
+                        <img src="/pengumuman/{{ .Name }}" alt="{{ .Name }}" class="w-full h-80 object-contain rounded-lg mx-auto">
+                    </div>
+                    {{ end }}
+                </div>
+                <div class="swiper-pagination mt-2"></div>
+            </div>
         </div>
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-pagination"></div>
-      </div>
-    </div>
 
-    <!-- Infografis -->
-    <div class="bg-gray-200 p-6 rounded-lg shadow text-center mb-8">
-      <h2 class="text-xl font-bold mb-4">Infografis</h2>
-      <div class="swiper mySwiper">
-        <div class="swiper-wrapper">
-          {{ range first 5 (where .Site.RegularPages.ByDate.Reverse "Section" "infografis") }}
-          <div class="swiper-slide">
-            <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="rounded-lg shadow mx-auto max-h-40">
-          </div>
-          {{ end }}
+        <!-- Infografis -->
+        <div class="bg-white p-6 text-center rounded-xl">
+            <h2 class="text-2xl font-extrabold text-green-700 uppercase tracking-wide">
+                Infografis
+            </h2>
+            <div class="w-12 h-1 bg-yellow-400 mt-1 mb-4 mx-auto rounded"></div>
+            
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    {{ $files := readDir "static/laporan-ikm/thumbnails" }}
+                    {{ range $files }}
+                    <div class="swiper-slide">
+                        <img src="/laporan-ikm/thumbnails/{{ .Name }}" alt="{{ .Name }}" class="w-full h-80 object-contain rounded-lg mx-auto">
+                    </div>
+                    {{ end }}
+                </div>
+                <div class="swiper-pagination mt-2"></div>
+            </div>
         </div>
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-pagination"></div>
-      </div>
     </div>
-  </div>
-
+    
   <!--Redirect to another web-->
   <div class="flex flex-col items-center justify-center gap-8 mx-auto mb-10 md:flex-row md:gap-24">
     <!-- Siranap -->
