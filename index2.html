@@ -1,0 +1,488 @@
+    {{ define "main" }}
+
+    <style>
+        .marquee {
+            overflow: hidden;
+            white-space: nowrap;
+            box-sizing: border-box;
+        }
+        .marquee-text {
+            display: inline-block;
+            padding-left: 100%;
+            animation: marquee 20s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+
+    .container {
+        white-space: nowrap;
+    }
+
+    .zoom-in {
+        transition: transform 0.3s ease;
+    }
+
+    .zoom-in:hover {
+        transform: scale(1.1);
+    }
+
+    </style>
+
+    <!-- Initialize Swiper -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        new Swiper(".mySwiper", {
+        slidesPerView: 1,
+        loop: true,
+        autoplay: { delay: 3000 },
+        pagination: { el: ".mySwiper .swiper-pagination", clickable: true },
+        navigation: {
+            nextEl: ".mySwiper .swiper-button-next",
+            prevEl: ".mySwiper .swiper-button-prev"
+            }
+        });
+    });
+    </script>
+
+    <!-- Judul Halaman dengan Video Background -->
+    <section class="relative w-full" style="height: 75vh;">
+    <!-- Video Background -->
+    <video autoplay muted loop playsinline class="absolute top-0 left-0 w-full h-full object-cover">
+        <source src="vidio/bg-video.mp4" type="video/mp4">
+        Browser Anda tidak mendukung video tag.
+    </video>
+
+    <!-- Overlay -->
+    <div class="absolute inset-0" style="background: rgba(0,0,0,0.10);"></div>
+
+    <!-- Judul Utama -->
+    <div class="relative flex items-center justify-center h-full">
+        <h1 class="text-white text-3xl md:text-5xl font-bold text-center drop-shadow-lg">
+        Website Resmi<br>RSUD Dokter Soedarso
+        </h1>
+    </div>
+    </section>
+
+    <!-- ====== Layout Utama ====== -->
+    <div class="max-w-6xl mx-auto px-4 py-8">
+
+    <!-- Baris: Pengumuman & Infografis -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <!-- Pengumuman -->
+        <div class="bg-white p-6 text-center rounded-xl">
+            <h2 class="text-2xl font-extrabold text-green-700 uppercase tracking-wide">Pengumuman</h2>
+            <div class="w-12 h-1 bg-yellow-400 mt-1 mb-4 mx-auto rounded"></div>
+
+            <div class="swiper mySwiper relative group">
+                <div class="swiper-wrapper">
+                    {{ $files := readDir "static/pengumuman" }}
+                    {{ range $files }}
+                    <div class="swiper-slide">
+                        <img src="/pengumuman/{{ .Name }}" alt="{{ .Name }}" 
+                            class="w-full h-80 object-contain rounded-lg mx-auto">
+                    </div>
+                    {{ end }}
+                </div>
+
+                <!-- Tombol Prev -->
+                <div class="swiper-button-prev opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                <!-- Tombol Next -->
+                <div class="swiper-button-next opacity-0 group-hover:opacity-100 transition duration-300"></div>
+
+                <div class="swiper-pagination mt-2"></div>
+            </div>
+        </div>
+
+        <!-- Infografis -->
+        <div class="bg-white p-6 text-center rounded-xl">
+            <h2 class="text-2xl font-extrabold text-green-700 uppercase tracking-wide">
+                Infografis
+            </h2>
+            <div class="w-12 h-1 bg-yellow-400 mt-1 mb-4 mx-auto rounded"></div>
+
+            <div class="swiper mySwiper relative group">
+                <div class="swiper-wrapper">
+                    {{ $files := readDir "static/laporan-ikm/thumbnails" }}
+                    {{ range $files }}
+                    <div class="swiper-slide">
+                        <img src="/laporan-ikm/thumbnails/{{ .Name }}" alt="{{ .Name }}" 
+                            class="w-full h-80 object-contain rounded-lg mx-auto">
+                    </div>
+                    {{ end }}
+                </div>
+
+                <!-- Tombol Prev -->
+                <div class="swiper-button-prev opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                <!-- Tombol Next -->
+                <div class="swiper-button-next opacity-0 group-hover:opacity-100 transition duration-300"></div>
+
+                <div class="swiper-pagination mt-2"></div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!--Redirect to another web-->
+    <div class="flex flex-col items-center justify-center gap-8 mx-auto mb-10 md:flex-row md:gap-24">
+        <!-- Siranap -->
+        <div class="bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition">
+        <div class="bg-green-100 p-3 rounded-full mb-4 flex items-center justify-center">
+            {{ $page := .Site.GetPage "siranap" }}
+            {{ $recentImage := $page.RegularPages | first 1 }}
+            {{ range $recentImage }}
+            <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="h-20 w-20 object-contain">
+            {{ end }}
+        </div>
+        <div class="flex-grow flex flex-col justify-between">
+            <h3 class="text-lg font-semibold text-gray-800">Ketersediaan Kamar Rawat Inap</h3>
+            <a href="https://itrsudsoedarso.kalbarprov.go.id/siranaponline/"
+            class="mt-4 px-5 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition">
+            Lihat
+            </a>
+        </div>
+        </div>
+
+        <!-- Registrasi Online -->
+        <div class="bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition">
+        <div class="bg-green-100 p-3 rounded-full mb-4 flex items-center justify-center">
+            {{ $page := .Site.GetPage "pendaftaran-online" }}
+            {{ $recentImage := $page.RegularPages | first 1 }}
+            {{ range $recentImage }}
+            <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="h-20 w-20 object-contain">
+            {{ end }}
+        </div>
+        <div class="flex-grow flex flex-col justify-between">
+            <h3 class="text-lg font-semibold text-gray-800">Pendaftaran Online</h3>
+            <a href="https://itrsudsoedarso.kalbarprov.go.id/registrasionline/Login"
+            class="mt-4 px-5 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition">
+            Lihat
+            </a>
+        </div>
+        </div>
+
+        <!-- Jadwal Operasi -->
+        <div class="bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition">
+        <div class="bg-green-100 p-3 rounded-full mb-4 flex items-center justify-center">
+            {{ $page := .Site.GetPage "jadwal-operasi" }}
+            {{ $recentImage := $page.RegularPages | first 1 }}
+            {{ range $recentImage }}
+            <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="h-20 w-20 object-contain">
+            {{ end }}
+        </div>
+        <div class="flex-grow flex flex-col justify-between">
+            <h3 class="text-lg font-semibold text-gray-800">Jadwal Operasi RSUD Soedarso</h3>
+            <a href="https://itrsudsoedarso.kalbarprov.go.id/jadwaloperasi/Display/index/"
+            class="mt-4 px-5 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition">
+            Lihat
+            </a>
+        </div>
+        </div>
+    </div>
+
+    <!-- Baris: Agenda & Berita -->
+  <!--<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">-->
+    <!-- Agenda -->
+    <div class="border-2 rounded-lg overflow-hidden p-4">
+      <div class="flex flex-col items-center mb-6">
+        <h2 class="text-2xl font-bold text-gray-900">Agenda</h2>
+        <div class="w-12 h-1 bg-green-500 mt-2"></div>
+      </div>
+
+      <!-- Agenda Card -->
+      {{ range first 5 (where .Site.Pages "Section" "agenda").ByDate }}
+      <div class="agenda-card">
+        <a href="#"
+          class="block max-w-sm p-6 mb-6 bg-white shadow-md rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-t-4 hover:border-green-500">
+          <!-- Konten -->
+            <h3 class="font-semibold tracking tight text-gray-900 text-2xl mb-2">{{ .Title }}</h3>
+            <p class="text-sm text-gray-600 flex items-center">
+              🕒 {{ .Params.time }}
+            </p>
+            <p class="text-sm text-gray-600 flex items-center">
+              📍 {{ .Params.location }}
+            </p>
+            <p class="text-sm text-gray-600 flex items-center">
+              👤 {{ .Params.organizer }}
+            </p>
+        </a>
+      </div>
+
+      <style>
+        .block.max-w-sm.p-6.mb-6.bg-white.shadow-md.rounded-lg.overflow-hidden.transition-all.duration-300.hover{
+          border-top-width: 4px;
+          border-color: #34D399;
+          box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+          transform: translateY(-5px);
+        }
+      </style>
+      {{end}}
+
+    </div>
+
+    <!-- Berita -->
+    <div class="border-2 rounded-lg overflow-hidden p-4">
+      <div class="flex flex-col items-center">
+        <h2 class="text-2xl font-bold text-gray-900">BERITA TERBARU</h2>
+        <div class="w-12 h-1 bg-green-500 mt-2"></div>
+      </div>
+      <div class="mt-6">
+        {{ $news := .Site.GetPage "berita" }}
+        {{ if $news }}
+        {{ with index (where $news.Pages.ByDate.Reverse "Type" "berita") 0 }}
+        <a href="{{ .Permalink }}"
+          class="block bg-white shadow-md rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-t-4 hover:border-green-500">
+          <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="w-full h-48 object-cover">
+          <div class="p-4">
+            <div class="flex items-center justify-between text-sm text-gray-500 mb-2">
+              <span>{{ .Params.category | default "Berita Kalbar" }}</span>
+              <span>{{ .Date.Format "2 January 2006" }}</span>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-900">
+              {{ .Title }}
+            </h3>
+            <span class="mt-2 inline-block text-blue-600 hover:underline text-sm font-medium">
+              Baca Selengkapnya
+            </span>
+          </div>
+        </a>
+        {{ end }}
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+          {{ range first 4 (after 1 (where $news.Pages.ByDate.Reverse "Type" "berita")) }}
+          <a href="{{ .Permalink }}"
+            class="block bg-white shadow-sm rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-t-4 hover:border-green-500">
+            <div class="flex items-start gap-3 p-3">
+              <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}"
+                class="w-16 h-12 object-cover rounded-md flex-shrink-0">
+              <div class="flex-1">
+                <div class="flex items-center justify-between text-xs text-gray-500 mb-1">
+                  <span>{{ .Params.category | default "Berita Kalbar" }}</span>
+                  <span>{{ .Date.Format "2 January 2006" }}</span>
+                </div>
+                <h3 class="text-sm font-semibold text-gray-900">
+                  {{ .Title }}
+                </h3>
+                <span class="mt-1 inline-block text-blue-600 hover:underline text-xs font-medium">
+                  Baca Selengkapnya
+                </span>
+              </div>
+            </div>
+          </a>
+          {{ end }}
+        </div>
+        {{ end }}
+      </div>
+      <div class="mt-6 text-center">
+        <a href="{{ .Site.BaseURL }}berita"
+          class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-green-500 hover:bg-green-600 transition-colors duration-300">
+          Lihat Semua Berita &rarr;
+        </a>
+      </div>
+    </div>
+
+    <style>
+      .block.bg-white.shadow-md.rounded-lg.overflow-hidden.transition-all.duration-300:hover {
+        border-top-width: 4px;
+        border-color: #34D399;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        transform: translateY(-5px);
+      }
+
+      .block.bg-white.shadow-sm.rounded-lg.overflow-hidden.transition-all.duration-300:hover {
+        border-top-width: 4px;
+        border-color: #34D399;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        transform: translateY(-5px);
+      }
+    </style>
+    </div>
+
+
+    <!-- Gallery -->
+    <h2 class="text-2xl font-bold text-center mb-6">Gallery</h2>
+    <div class="relative">
+        <!-- Tombol Prev -->
+        <button onclick="scrollGallery(-1)" 
+                class="absolute left-0 top-1/2 -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10 hover:bg-gray-600">
+        ‹
+        </button>
+
+        <!-- Kontainer scroll -->
+        <div id="galleryScroll" class="flex gap-4 overflow-x-auto pb-4 scroll-smooth snap-x snap-mandatory">
+            {{ $files := readDir "static/images/gallery" }}
+            {{ range $files }}
+                {{ if or (strings.HasSuffix .Name ".jpg") (strings.HasSuffix .Name ".jpeg") (strings.HasSuffix .Name ".png") }}
+                <div class="w-64 h-40 bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden flex-shrink-0 snap-center">
+                    <img src="/images/gallery/{{ .Name }}" alt="{{ .Name }}" class="w-full h-full object-cover">
+                </div>
+                {{ end }}
+            {{ end }}
+        </div>
+
+        <!-- Tombol Next -->
+        <button onclick="scrollGallery(1)" 
+                class="absolute right-0 top-1/2 -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10 hover:bg-gray-600">
+        ›
+        </button>
+    </div>
+
+    <!-- Buletin -->
+    <h2 class="text-2xl font-bold text-center mb-6" style="padding-top: 30px">Buletin RSUD Dokter Soedarso</h2>
+    <div class="relative">
+        <!-- Tombol Prev -->
+        <button onclick="scrollBuletin(-1)" 
+                class="absolute left-0 top-1/2 -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10 hover:bg-gray-600">
+        ‹
+        </button>
+
+        <!-- Kontainer scroll -->
+        <div id="buletinScroll" class="flex gap-4 overflow-x-auto pb-4 scroll-smooth snap-x snap-mandatory">
+            {{ range first 50 (where .Site.RegularPages.ByDate.Reverse "Section" "buletin") }}
+            <a href="{{ .RelPermalink }}" class="w-64 h-41 bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden flex-shrink-0 snap-center">
+                <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="w-full h-32 object-cover">
+                <div class="p-3">
+                <h3 class="font-semibold text-sm text-gray-800 line-clamp-2">{{ .Title }}</h3>
+                </div>
+            </a>
+            {{ end }}
+        </div>
+
+        <!-- Tombol Next -->
+        <button onclick="scrollBuletin(1)" 
+                class="absolute right-0 top-1/2 -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10 hover:bg-gray-600">
+        ›
+        </button>
+    </div>
+
+    <script>
+        // Fungsi umum buat scroll manual
+        function setupScroll(containerId, intervalTime) {
+            const container = document.getElementById(containerId);
+            let index = 0;
+            const itemWidth = () => container.querySelector(container.children[0].tagName.toLowerCase()).offsetWidth + 16;
+
+            function scroll(dir) {
+                index += dir;
+                container.scrollTo({
+                    left: index * itemWidth(),
+                    behavior: "smooth"
+                });
+            }
+
+            // Autoplay
+            setInterval(() => {
+                scroll(1);
+            }, intervalTime);
+
+            // Drag/Swipe pakai mouse
+            let isDown = false;
+            let startX, scrollLeft;
+
+            container.addEventListener("mousedown", (e) => {
+                isDown = true;
+                startX = e.pageX - container.offsetLeft;
+                scrollLeft = container.scrollLeft;
+            });
+            container.addEventListener("mouseleave", () => { isDown = false; });
+            container.addEventListener("mouseup", () => { isDown = false; });
+            container.addEventListener("mousemove", (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - container.offsetLeft;
+                const walk = (x - startX) * 2;
+                container.scrollLeft = scrollLeft - walk;
+            });
+
+            // Swipe di HP
+            let startXTouch = 0;
+            container.addEventListener("touchstart", (e) => {
+                startXTouch = e.touches[0].clientX;
+            });
+            container.addEventListener("touchend", (e) => {
+                let endX = e.changedTouches[0].clientX;
+                if (startXTouch - endX > 50) {
+                    scroll(1);
+                } else if (endX - startXTouch > 50) {
+                    scroll(-1);
+                }
+            });
+
+            return scroll;
+        }
+
+        // Setup untuk Gallery & Buletin
+        const scrollGallery = setupScroll("galleryScroll", 3000);
+        const scrollBuletin = setupScroll("buletinScroll", 4000);
+    </script>
+
+
+    <!-- ====== End Layout ====== -->
+
+
+
+    <!--
+    <div class="bg-gray-200 dark:bg-gray-700">
+    {{ $frontBundle2 := .Site.Params.frontBundle2 | default "gallery" }}
+    <div class="pb-5 scroll-container">
+        <h2 class="mt-5 text-2xl font-bold text-center text-gray-800 dark:text-gray-100">{{ $frontBundle2 | title }}</h2>
+        <div class="mb-5 scroll-content animation fade-in h-96" id="animateMe2">
+        {{ range first 9 (where .Site.RegularPages.ByDate.Reverse "Type" $frontBundle2) }}
+        <div class="h-full mb-2 rounded-lg">
+            <div class="h-full transition duration-500 ease-in-out content hover">{{- partial "blog-card.html" . -}}</div>
+        </div>
+        {{ end }}
+        </div>
+    </div>
+    -->
+
+    <!--
+    <div class="grid gap-4 md:grid-cols-1 lg:gap-x-16">
+        <div>
+        {{ $frontBundle := .Site.Params.frontBundle | default "berita" }}
+        <h2 class="mt-6 text-2xl font-bold text-center">{{ $frontBundle | title }}</h2>
+        <div class="container grid grid-cols-1 gap-4 p-6 mx-auto md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+            {{ range first 6 (where .Site.RegularPages.ByDate.Reverse "Type" $frontBundle)  }}
+            {{- partial "blog-card.html" . -}}
+            {{ end }}
+        </div>
+
+        {{ if gt (len (where .Site.RegularPages.ByDate.Reverse "Type" $frontBundle)) 6 }}
+        <div class="mb-8 text-center">
+            <a class="px-8 py-3 rounded transition-colors {{ .Site.Params.ascentColor | default "bg-pink-50" }}
+            text-gray-500 hover:text-gray-800 dark:bg-gray-900 dark:text-gray-400 dark:hover:text-white"
+            href="{{ (index (.Site.Menus.main) 0).URL | absLangURL }}" lang="{{ .Lang }}">
+            {{ i18n "morePosts" }}
+            </a>
+        </div>
+        {{ end }}
+        </div>
+
+
+        {{ $frontBundle2 := .Site.Params.frontBundle2 | default "gallery" }}
+        <h2 class="mt-6 text-2xl font-bold text-center dark:text-black">{{ $frontBundle2 | title }}</h2>
+        <div class="container grid grid-cols-1 gap-1 p-6 mx-auto md:grid-cols-2 lg:grid-cols-3 lg:gap-1">
+            {{ range first 6 (where .Site.RegularPages.ByDate.Reverse "Type" $frontBundle2)  }}
+            {{- partial "blog-card.html" . -}}
+            {{ end }}
+        </div>
+        </div>
+
+
+        {{ if gt (len (where .Site.RegularPages.ByDate.Reverse "Type" $frontBundle2)) 6 }}
+        <div class="mb-8 text-center">
+            <a class="px-8 py-3 rounded transition-colors {{ .Site.Params.ascentColor | default "bg-pink-50" }}
+            text-gray-500 hover:text-gray-800 dark:bg-gray-900 dark:text-gray-400 dark:hover:text-white"
+            href="{{ (index (.Site.Menus.main) 0).URL | absLangURL }}" lang="{{ .Lang }}">
+            {{ i18n "morePosts" }}
+            </a>
+        </div>
+        {{ end }}
+
+        -->
+
+    {{- partial "intro.html" . -}}
+    {{ end }}
