@@ -214,24 +214,68 @@ new Swiper(".mySwiper", {
       </div>
 
       <!-- Agenda Card -->
-      {{ range first 6 (where .Site.Pages "Section" "agenda").ByDate }}
+      {{ range first 5 (where .Site.RegularPages "Section" "agenda").ByDate }}
       <div class="agenda-card">
         <a href="#"
           class="block w-full p-4 mb-4 bg-white shadow-md rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-t-4 hover:border-green-500">
-          <!-- Konten -->
-          <h3 class="font-semibold tracking tight text-gray-900 text-2xl mb-2">{{.Title }}</h3>
-          <p class="text-sm text-gray-600 flex items-center">
-            🕒 {{ .Params.time }}
-          </p>
-          <p class="text-sm text-gray-600 flex items-center">
-            📍 {{ .Params.location }}
-          </p>
-          <p class="text-sm text-gray-600 flex items-center">
-            👤 {{ .Params.organizer }}
-          </p>
+          <!-- Judul -->
+          <h3 class="font-semibold text-gray-900 text-xl mb-3 line-clamp-2">
+            {{ .Title }}
+          </h3>
+
+          <!-- Tanggal -->
+          <div class="flex items-center text-sm text-gray-600 mb-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2 text-yellow-400" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10m-12 8h14a2 2 0 002-2V7a2 2 0 
+          00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            <span>{{ .Date.Format "2 January 2006" }}</span>
+          </div>
+
+          <!-- Waktu -->
+          <div class="flex items-center text-sm text-gray-600 mb-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2 text-green-500" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>{{ .Params.time }}</span>
+          </div>
+
+          <!-- Lokasi -->
+          <div class="flex items-center text-sm text-gray-600 mb-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2 text-yellow-400" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1 1 0 01-1.414 0L6.343 
+          16.657a8 8 0 1111.314 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            <span>{{ .Params.location }}</span>
+          </div>
+
+          <!-- Penyelenggara -->
+          <div class="flex items-center text-sm text-gray-600">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2 text-green-500" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+            <span>{{ .Params.organizer }}</span>
+          </div>
+
         </a>
       </div>
       {{end}}
+      <div class="mt-6 text-center">
+        <a href="{{ .Site.BaseURL }}berita"
+          class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-green-500 hover:bg-green-600 transition-colors duration-300">
+          Lihat Semua Agenda &rarr;
+        </a>
+      </div>
 
       <style>
         .block.w-full.p-4.mb-4.bg-white.shadow-md.rounded-lg.overflow-hidden.transition-all.duration-300.hover {
@@ -276,7 +320,7 @@ new Swiper(".mySwiper", {
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
           {{ range first 4 (after 1 (where $news.Pages.ByDate.Reverse "Type" "berita")) }}
           <a href="{{ .Permalink }}"
-            class="block bg-white shadow-sm rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-t-4 hover:border-green-500">
+            class="block bg-white shadow-md rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-t-4 hover:border-green-500">
             <div class="flex items-start gap-3 p-3">
               <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}"
                 class="w-16 h-12 object-cover rounded-md flex-shrink-0">
@@ -314,12 +358,6 @@ new Swiper(".mySwiper", {
         transform: translateY(-5px);
       }
 
-      .block.bg-white.shadow-sm.rounded-lg.overflow-hidden.transition-all.duration-300:hover {
-        border-top-width: 4px;
-        border-color: #34D399;
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        transform: translateY(-5px);
-      }
     </style>
   </div>
 
