@@ -289,20 +289,58 @@
 
   <!-- Gallery -->
   <h2 class="text-2xl font-bold text-center mb-6">Gallery</h2>
-  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
-    <div class="bg-gray-200 h-32 rounded-lg"></div>
-    <div class="bg-gray-200 h-32 rounded-lg"></div>
-    <div class="bg-gray-200 h-32 rounded-lg"></div>
-    <div class="bg-gray-200 h-32 rounded-lg"></div>
+  <div class="relative">
+    <!-- Tombol Prev -->
+    <button onclick="scrollGallery(-1)" 
+            class="absolute left-0 top-1/2 -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10 hover:bg-gray-600">
+      ‹
+    </button>
+
+    <!-- Kontainer scroll -->
+    <div id="galleryScroll" class="flex gap-4 overflow-x-auto pb-4 scroll-smooth">
+      {{ $files := readDir "static/images/gallery" }}
+      {{ range $files }}
+        {{ if or (strings.HasSuffix .Name ".jpg") (strings.HasSuffix .Name ".jpeg") (strings.HasSuffix .Name ".png") }}
+          <div class="w-64 h-40 bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden flex-shrink-0">
+            <img src="/images/gallery/{{ .Name }}" alt="{{ .Name }}" class="w-full h-full object-cover">
+          </div>
+        {{ end }}
+      {{ end }}
+    </div>
+
+    <!-- Tombol Next -->
+    <button onclick="scrollGallery(1)" 
+            class="absolute right-0 top-1/2 -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10 hover:bg-gray-600">
+      ›
+    </button>
   </div>
 
   <!-- Buletin -->
-  <h2 class="text-2xl font-bold text-center mb-6">Buletin RSUD Dokter Soedarso</h2>
-  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-    <div class="bg-gray-200 h-32 rounded-lg"></div>
-    <div class="bg-gray-200 h-32 rounded-lg"></div>
-    <div class="bg-gray-200 h-32 rounded-lg"></div>
-    <div class="bg-gray-200 h-32 rounded-lg"></div>
+  <h2 class="text-2xl font-bold text-center mb-6" style="padding-top: 30px">Buletin RSUD Dokter Soedarso</h2>
+  <div class="relative">
+    <!-- Tombol Prev -->
+    <button onclick="scrollBuletin(-1)" 
+            class="absolute left-0 top-1/2 -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10 hover:bg-gray-600">
+      ‹
+    </button>
+
+    <!-- Kontainer scroll -->
+    <div id="buletinScroll" class="flex gap-4 overflow-x-auto pb-4 scroll-smooth">
+      {{ range first 50 (where .Site.RegularPages.ByDate.Reverse "Section" "buletin") }}
+      <a href="{{ .RelPermalink }}" class="w-64 h-41 bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden flex-shrink-0">
+        <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="w-full h-32 object-cover">
+        <div class="p-3">
+          <h3 class="font-semibold text-sm text-gray-800 line-clamp-2">{{ .Title }}</h3>
+        </div>
+      </a>
+    {{ end }}
+    </div>
+
+    <!-- Tombol Next -->
+    <button onclick="scrollBuletin(1)" 
+            class="absolute right-0 top-1/2 -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10 hover:bg-gray-600">
+      ›
+    </button>
   </div>
 
 </div>
