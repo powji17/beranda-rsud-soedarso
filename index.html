@@ -223,62 +223,83 @@ new Swiper(".mySwiper", {
   </div>
 
   <!-- Berita -->
-  <div class="flex flex-col items-center">
+  <div class="flex flex-col items-center mt-10 mb-6">
     <h2 class="text-3xl font-extrabold text-green-700 uppercase tracking-wide">Berita</h2>
     <div class="w-12 h-1 bg-yellow-400 mt-1 mx-auto rounded"></div>
   </div>
-  <div class="mt-6">
-    {{ $news := .Site.GetPage "berita" }}
-    {{ if $news }}
-    {{ with index (where $news.Pages.ByDate.Reverse "Type" "berita") 0 }}
-    <a href="{{ .Permalink }}"
-      class="block bg-white shadow-md rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-t-4 hover:border-green-500">
-      <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="w-full h-48 object-cover">
-      <div class="p-4">
-        <div class="flex items-center justify-between text-sm text-gray-500 mb-2">
-          <span>{{ .Params.category | default "Berita Kalbar" }}</span>
-          <span>{{ .Date.Format "2 January 2006" }}</span>
-        </div>
-        <h3 class="text-lg font-semibold text-gray-900">
-          {{ .Title }}
-        </h3>
-        <span class="mt-2 inline-block text-blue-600 hover:underline text-sm font-medium">
-          Baca Selengkapnya
-        </span>
-      </div>
-    </a>
-    {{ end }}
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-      {{ range first 4 (after 1 (where $news.Pages.ByDate.Reverse "Type" "berita")) }}
+  <div class="mt-6">
+      {{ $news := .Site.GetPage "berita" }}
+      {{ if $news }}
+      <!-- Berita Utama -->
+      {{ with index (where $news.Pages.ByDate.Reverse "Type" "berita") 0 }}
       <a href="{{ .Permalink }}"
-        class="block bg-white shadow-md rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-t-4 hover:border-green-500">
-        <div class="flex items-start gap-3 p-3">
-          <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}"
-            class="w-16 h-12 object-cover rounded-md flex-shrink-0">
-          <div class="flex-1">
-            <div class="flex items-center justify-between text-xs text-gray-500 mb-1">
-              <span>{{ .Params.category | default "Berita Kalbar" }}</span>
-              <span>{{ .Date.Format "2 January 2006" }}</span>
-            </div>
-            <h3 class="text-sm font-semibold text-gray-900">
-              {{ .Title }}
-            </h3>
-            <span class="mt-1 inline-block text-blue-600 hover:underline text-xs font-medium">
-              Baca Selengkapnya
-            </span>
+      class="block bg-white shadow-md rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-t-4 hover:border-green-500">
+      <div class="relative">
+          <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="w-full h-56 object-cover">
+      </div>
+      <div class="p-4">
+          <div class="flex items-center justify-between text-sm text-gray-500 mb-2">
+          <span class="inline-block px-2 py-1 bg-green-100 text-green-600 rounded-full text-xs font-medium">
+              {{ .Params.category | default "Berita Kalbar" }}
+          </span>
+          <span class="flex items-center gap-1 text-gray-500">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              {{ .Date.Format "2 January 2006" }}
+          </span>
           </div>
-        </div>
+          <h3 class="text-base font-semibold text-gray-900 leading-snug">
+          {{ .Title }}
+          </h3>
+          <span class="mt-2 inline-block text-green-600 hover:underline text-sm font-medium">
+          Baca Selengkapnya
+          </span>
+      </div>
       </a>
       {{ end }}
-    </div>
-    {{ end }}
+
+      <!-- Daftar Berita Lain -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+      {{ range first 4 (after 1 (where $news.Pages.ByDate.Reverse "Type" "berita")) }}
+      <a href="{{ .Permalink }}"
+          class="block bg-white shadow-md rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-t-4 hover:border-green-500">
+          <div class="relative">
+          <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="w-full h-40 object-cover">
+          </div>
+          <div class="p-3">
+          <div class="flex items-center justify-between text-xs text-gray-500 mb-1">
+              <span class="inline-block px-2 py-1 bg-green-100 text-green-600 rounded-full text-[10px] font-medium">
+              {{ .Params.category | default "Berita Kalbar" }}
+              </span>
+              <span class="flex items-center gap-1 text-gray-500">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              {{ .Date.Format "2 January 2006" }}
+              </span>
+          </div>
+          <h3 class="text-sm font-semibold text-gray-900 leading-snug">
+              {{ .Title }}
+          </h3>
+          <span class="mt-1 inline-block text-green-600 hover:underline text-xs font-medium">
+              Baca Selengkapnya
+          </span>
+          </div>
+      </a>
+      {{ end }}
+      </div>
+      {{ end }}
   </div>
+
   <div class="mt-6 text-center">
-    <a href="{{ .Site.BaseURL }}berita"
+      <a href="{{ .Site.BaseURL }}berita"
       class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-green-500 hover:bg-green-600 transition-colors duration-300">
       Lihat Semua Berita &rarr;
-    </a>
+      </a>
   </div>
 
   <!-- Agenda -->
