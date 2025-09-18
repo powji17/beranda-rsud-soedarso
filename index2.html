@@ -95,6 +95,7 @@
                 <div class="swiper-pagination mt-2"></div>
             </div>
         </div>
+        
 
         <!-- Infografis -->
         <div class="bg-white p-6 text-center rounded-xl">
@@ -184,243 +185,236 @@
     </div>
 
     <!-- Baris: Agenda & Berita -->
-  <!--<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">-->
-    <!-- Agenda -->
-    <div class="border-2 rounded-lg overflow-hidden p-4">
-      <div class="flex flex-col items-center mb-6">
-        <h2 class="text-2xl font-bold text-gray-900">Agenda</h2>
-        <div class="w-12 h-1 bg-green-500 mt-2"></div>
-      </div>
-
-      <!-- Agenda Card -->
-      {{ range first 5 (where .Site.Pages "Section" "agenda").ByDate }}
-      <div class="agenda-card">
-        <a href="#"
-          class="block max-w-sm p-6 mb-6 bg-white shadow-md rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-t-4 hover:border-green-500">
-          <!-- Konten -->
-            <h3 class="font-semibold tracking tight text-gray-900 text-2xl mb-2">{{ .Title }}</h3>
-            <p class="text-sm text-gray-600 flex items-center">
-              🕒 {{ .Params.time }}
-            </p>
-            <p class="text-sm text-gray-600 flex items-center">
-              📍 {{ .Params.location }}
-            </p>
-            <p class="text-sm text-gray-600 flex items-center">
-              👤 {{ .Params.organizer }}
-            </p>
-        </a>
-      </div>
-
-      <style>
-        .block.max-w-sm.p-6.mb-6.bg-white.shadow-md.rounded-lg.overflow-hidden.transition-all.duration-300.hover{
-          border-top-width: 4px;
-          border-color: #34D399;
-          box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-          transform: translateY(-5px);
-        }
-      </style>
-      {{end}}
-
+    <!--<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">-->
+    <!-- Berita -->
+    <div class="rounded-lg overflow-hidden p-4">
+    <div class="flex flex-col items-center mt-10 mb-6">
+        <h2 class="text-3xl font-extrabold text-green-700 uppercase tracking-wide">BERITA</h2>
+        <div class="w-12 h-1 bg-yellow-400 mt-1 mx-auto rounded"></div>
     </div>
 
-    <!-- Berita -->
-    <div class="border-2 rounded-lg overflow-hidden p-4">
-      <div class="flex flex-col items-center">
-        <h2 class="text-2xl font-bold text-gray-900">BERITA TERBARU</h2>
-        <div class="w-12 h-1 bg-green-500 mt-2"></div>
-      </div>
-      <div class="mt-6">
+    <div class="mt-6">
         {{ $news := .Site.GetPage "berita" }}
         {{ if $news }}
+        <!-- Berita Utama -->
         {{ with index (where $news.Pages.ByDate.Reverse "Type" "berita") 0 }}
         <a href="{{ .Permalink }}"
-          class="block bg-white shadow-md rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-t-4 hover:border-green-500">
-          <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="w-full h-48 object-cover">
-          <div class="p-4">
+        class="block bg-white shadow-md rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-t-4 hover:border-green-500">
+        <div class="relative">
+            <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="w-full h-56 object-cover">
+        </div>
+        <div class="p-4">
             <div class="flex items-center justify-between text-sm text-gray-500 mb-2">
-              <span>{{ .Params.category | default "Berita Kalbar" }}</span>
-              <span>{{ .Date.Format "2 January 2006" }}</span>
-            </div>
-            <h3 class="text-lg font-semibold text-gray-900">
-              {{ .Title }}
-            </h3>
-            <span class="mt-2 inline-block text-blue-600 hover:underline text-sm font-medium">
-              Baca Selengkapnya
+            <span class="inline-block px-2 py-1 bg-green-100 text-green-600 rounded-full text-xs font-medium">
+                {{ .Params.category | default "Berita Kalbar" }}
             </span>
-          </div>
+            <span class="flex items-center gap-1 text-gray-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                {{ .Date.Format "2 January 2006" }}
+            </span>
+            </div>
+            <h3 class="text-base font-semibold text-gray-900 leading-snug">
+            {{ .Title }}
+            </h3>
+            <span class="mt-2 inline-block text-green-600 hover:underline text-sm font-medium">
+            Baca Selengkapnya
+            </span>
+        </div>
         </a>
         {{ end }}
 
+        <!-- Daftar Berita Lain -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-          {{ range first 4 (after 1 (where $news.Pages.ByDate.Reverse "Type" "berita")) }}
-          <a href="{{ .Permalink }}"
+        {{ range first 4 (after 1 (where $news.Pages.ByDate.Reverse "Type" "berita")) }}
+        <a href="{{ .Permalink }}"
             class="block bg-white shadow-sm rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-t-4 hover:border-green-500">
-            <div class="flex items-start gap-3 p-3">
-              <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}"
-                class="w-16 h-12 object-cover rounded-md flex-shrink-0">
-              <div class="flex-1">
-                <div class="flex items-center justify-between text-xs text-gray-500 mb-1">
-                  <span>{{ .Params.category | default "Berita Kalbar" }}</span>
-                  <span>{{ .Date.Format "2 January 2006" }}</span>
-                </div>
-                <h3 class="text-sm font-semibold text-gray-900">
-                  {{ .Title }}
-                </h3>
-                <span class="mt-1 inline-block text-blue-600 hover:underline text-xs font-medium">
-                  Baca Selengkapnya
-                </span>
-              </div>
+            <div class="relative">
+            <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="w-full h-40 object-cover">
             </div>
-          </a>
-          {{ end }}
+            <div class="p-3">
+            <div class="flex items-center justify-between text-xs text-gray-500 mb-1">
+                <span class="inline-block px-2 py-1 bg-green-100 text-green-600 rounded-full text-[10px] font-medium">
+                {{ .Params.category | default "Berita Kalbar" }}
+                </span>
+                <span class="flex items-center gap-1 text-gray-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                {{ .Date.Format "2 January 2006" }}
+                </span>
+            </div>
+            <h3 class="text-sm font-semibold text-gray-900 leading-snug">
+                {{ .Title }}
+            </h3>
+            <span class="mt-1 inline-block text-green-600 hover:underline text-xs font-medium">
+                Baca Selengkapnya
+            </span>
+            </div>
+        </a>
+        {{ end }}
         </div>
         {{ end }}
-      </div>
-      <div class="mt-6 text-center">
+    </div>
+
+    <div class="mt-6 text-center">
         <a href="{{ .Site.BaseURL }}berita"
-          class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-green-500 hover:bg-green-600 transition-colors duration-300">
-          Lihat Semua Berita &rarr;
+        class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-green-500 hover:bg-green-600 transition-colors duration-300">
+        Lihat Semua Berita &rarr;
         </a>
-      </div>
+    </div>
     </div>
 
     <style>
-      .block.bg-white.shadow-md.rounded-lg.overflow-hidden.transition-all.duration-300:hover {
+    .block.bg-white.shadow-md.rounded-lg.overflow-hidden.transition-all.duration-300:hover,
+    .block.bg-white.shadow-sm.rounded-lg.overflow-hidden.transition-all.duration-300:hover {
         border-top-width: 4px;
         border-color: #34D399;
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+        0 4px 6px -2px rgba(0, 0, 0, 0.05);
         transform: translateY(-5px);
-      }
-
-      .block.bg-white.shadow-sm.rounded-lg.overflow-hidden.transition-all.duration-300:hover {
-        border-top-width: 4px;
-        border-color: #34D399;
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        transform: translateY(-5px);
-      }
+    }
     </style>
+
+
+
+    <!-- Agenda -->
+    <div class="flex flex-col items-center mt-10 mb-6">
+        <h2 class="text-3xl font-extrabold text-green-700 uppercase tracking-wide">Agenda</h2>
+        <div class="w-12 h-1 bg-yellow-400 mt-1 mx-auto rounded"></div>
+    </div>
+    <!-- Agenda Card -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+        {{ range first 4 (where .Site.RegularPages "Section" "agenda").ByDate }}
+        <div class="agenda-card">
+        <a href="#"
+            class="block w-full p-4 mb-4 bg-white shadow-md rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-t-4 hover:border-green-500">
+            <!-- Judul -->
+            <h3 class="font-semibold text-gray-900 text-xl mb-3 line-clamp-2">
+            {{ .Title }}
+            </h3>
+
+            <!-- Tanggal -->
+            <div class="flex items-center text-sm text-gray-600 mb-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2 text-yellow-400" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10m-12 8h14a2 2 0 002-2V7a2 2 0 
+                00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            <span>{{ .Date.Format "2 January 2006" }}</span>
+            </div>
+
+            <!-- Waktu -->
+            <div class="flex items-center text-sm text-gray-600 mb-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2 text-green-500" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>{{ .Params.time }}</span>
+            </div>
+
+            <!-- Lokasi -->
+            <div class="flex items-center text-sm text-gray-600 mb-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2 text-yellow-400" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1 1 0 01-1.414 0L6.343 
+                16.657a8 8 0 1111.314 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            <span>{{ .Params.location }}</span>
+            </div>
+
+            <!-- Penyelenggara -->
+            <div class="flex items-center text-sm text-gray-600">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2 text-green-500" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+            <span>{{ .Params.organizer }}</span>
+            </div>
+        </a>
+        </div>
+        {{end}}
+    </div>
+    <div class="mt-6 text-center">
+        <a href="{{ .Site.BaseURL }}berita"
+        class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-green-500 hover:bg-green-600 transition-colors duration-300">
+        Lihat Semua Agenda &rarr;
+        </a>
     </div>
 
+    </div>
+    <!-- ====== End Layout Utama ====== -->
 
     <!-- Gallery -->
-    <h2 class="text-2xl font-bold text-center mb-6">Gallery</h2>
+    <div class="flex flex-col items-center mt-2">
+    <h2 class="text-3xl font-extrabold text-green-700 uppercase tracking-wide">Gallery</h2>
+    <div class="w-12 h-1 bg-yellow-400 mt-1 mb-4 mx-auto rounded"></div>
+    </div>
     <div class="relative">
-        <!-- Tombol Prev -->
-        <button onclick="scrollGallery(-1)" 
-                class="absolute left-0 top-1/2 -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10 hover:bg-gray-600">
+    <!-- Tombol Prev -->
+    <button onclick="scrollGallery(-1)" 
+            class="absolute left-0 top-1/2 -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10 hover:bg-gray-600">
         ‹
-        </button>
+    </button>
 
-        <!-- Kontainer scroll -->
-        <div id="galleryScroll" class="flex gap-4 overflow-x-auto pb-4 scroll-smooth snap-x snap-mandatory">
-            {{ $files := readDir "static/images/gallery" }}
-            {{ range $files }}
-                {{ if or (strings.HasSuffix .Name ".jpg") (strings.HasSuffix .Name ".jpeg") (strings.HasSuffix .Name ".png") }}
-                <div class="w-64 h-40 bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden flex-shrink-0 snap-center">
-                    <img src="/images/gallery/{{ .Name }}" alt="{{ .Name }}" class="w-full h-full object-cover">
-                </div>
-                {{ end }}
-            {{ end }}
-        </div>
+    <!-- Kontainer scroll -->
+    <div id="galleryScroll" class="flex gap-4 overflow-x-auto pb-4 scroll-smooth">
+        {{ $files := readDir "static/gallery" }}
+        {{ range $files }}
+        {{ if or (strings.HasSuffix .Name ".jpg") (strings.HasSuffix .Name ".jpeg") (strings.HasSuffix .Name ".png") }}
+            <div class="w-64 h-40 bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden flex-shrink-0">
+            <img src="/gallery/{{ .Name }}" alt="{{ .Name }}" class="w-full h-full object-cover">
+            </div>
+        {{ end }}
+        {{ end }}
+    </div>
 
-        <!-- Tombol Next -->
-        <button onclick="scrollGallery(1)" 
-                class="absolute right-0 top-1/2 -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10 hover:bg-gray-600">
+    <!-- Tombol Next -->
+    <button onclick="scrollGallery(1)" 
+            class="absolute right-0 top-1/2 -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10 hover:bg-gray-600">
         ›
-        </button>
+    </button>
     </div>
 
     <!-- Buletin -->
-    <h2 class="text-2xl font-bold text-center mb-6" style="padding-top: 30px">Buletin RSUD Dokter Soedarso</h2>
+    <div class="flex flex-col items-center mt-4">
+    <h2 class="text-3xl font-extrabold text-green-700 uppercase tracking-wide mt-4">Buletin RSUD Dokter Soedarso</h2>
+    <div class="w-12 h-1 bg-yellow-400 mt-1 mb-4 mx-auto rounded"></div>
+    </div>
     <div class="relative">
-        <!-- Tombol Prev -->
-        <button onclick="scrollBuletin(-1)" 
-                class="absolute left-0 top-1/2 -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10 hover:bg-gray-600">
+    <!-- Tombol Prev -->
+    <button onclick="scrollBuletin(-1)" 
+            class="absolute left-0 top-1/2 -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10 hover:bg-gray-600">
         ‹
-        </button>
+    </button>
 
-        <!-- Kontainer scroll -->
-        <div id="buletinScroll" class="flex gap-4 overflow-x-auto pb-4 scroll-smooth snap-x snap-mandatory">
-            {{ range first 50 (where .Site.RegularPages.ByDate.Reverse "Section" "buletin") }}
-            <a href="{{ .RelPermalink }}" class="w-64 h-41 bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden flex-shrink-0 snap-center">
-                <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="w-full h-32 object-cover">
-                <div class="p-3">
-                <h3 class="font-semibold text-sm text-gray-800 line-clamp-2">{{ .Title }}</h3>
-                </div>
-            </a>
-            {{ end }}
+    <!-- Kontainer scroll -->
+    <div id="buletinScroll" class="flex gap-4 overflow-x-auto pb-4 scroll-smooth">
+        {{ range first 50 (where .Site.RegularPages.ByDate.Reverse "Section" "buletin") }}
+        <a href="{{ .RelPermalink }}" class="w-64 h-41 bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden flex-shrink-0">
+        <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="w-full h-32 object-cover">
+        <div class="p-3">
+            <h3 class="font-semibold text-sm text-gray-800 line-clamp-2">{{ .Title }}</h3>
         </div>
-
-        <!-- Tombol Next -->
-        <button onclick="scrollBuletin(1)" 
-                class="absolute right-0 top-1/2 -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10 hover:bg-gray-600">
-        ›
-        </button>
+        </a>
+    {{ end }}
     </div>
 
-    <script>
-        // Fungsi umum buat scroll manual
-        function setupScroll(containerId, intervalTime) {
-            const container = document.getElementById(containerId);
-            let index = 0;
-            const itemWidth = () => container.querySelector(container.children[0].tagName.toLowerCase()).offsetWidth + 16;
-
-            function scroll(dir) {
-                index += dir;
-                container.scrollTo({
-                    left: index * itemWidth(),
-                    behavior: "smooth"
-                });
-            }
-
-            // Autoplay
-            setInterval(() => {
-                scroll(1);
-            }, intervalTime);
-
-            // Drag/Swipe pakai mouse
-            let isDown = false;
-            let startX, scrollLeft;
-
-            container.addEventListener("mousedown", (e) => {
-                isDown = true;
-                startX = e.pageX - container.offsetLeft;
-                scrollLeft = container.scrollLeft;
-            });
-            container.addEventListener("mouseleave", () => { isDown = false; });
-            container.addEventListener("mouseup", () => { isDown = false; });
-            container.addEventListener("mousemove", (e) => {
-                if (!isDown) return;
-                e.preventDefault();
-                const x = e.pageX - container.offsetLeft;
-                const walk = (x - startX) * 2;
-                container.scrollLeft = scrollLeft - walk;
-            });
-
-            // Swipe di HP
-            let startXTouch = 0;
-            container.addEventListener("touchstart", (e) => {
-                startXTouch = e.touches[0].clientX;
-            });
-            container.addEventListener("touchend", (e) => {
-                let endX = e.changedTouches[0].clientX;
-                if (startXTouch - endX > 50) {
-                    scroll(1);
-                } else if (endX - startXTouch > 50) {
-                    scroll(-1);
-                }
-            });
-
-            return scroll;
-        }
-
-        // Setup untuk Gallery & Buletin
-        const scrollGallery = setupScroll("galleryScroll", 3000);
-        const scrollBuletin = setupScroll("buletinScroll", 4000);
-    </script>
-
-
-    <!-- ====== End Layout ====== -->
+    <!-- Tombol Next -->
+    <button onclick="scrollBuletin(1)" 
+            class="absolute right-0 top-1/2 -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10 hover:bg-gray-600">
+        ›
+    </button>
+    </div>
 
 
 
