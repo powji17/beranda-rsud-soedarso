@@ -18,17 +18,22 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15) !important;
         }
 
-        /* Aturan untuk memastikan warna teks berubah dengan benar */
-        #main-header:not(.scrolled) #header-title,
+        /* Aturan warna untuk teks judul utama */
+        #main-header:not(.scrolled) #header-title {
+            color: #34D399 !important; /* Warna hijau */
+        }
+        #main-header.scrolled #header-title {
+            color: #4B5563 !important; /* Warna abu-abu gelap */
+        }
+
+        /* Aturan warna untuk navigasi dan ikon lainnya */
         #main-header:not(.scrolled) nav a,
         #main-header:not(.scrolled) nav button {
             color: white !important;
         }
-
-        #main-header.scrolled #header-title,
         #main-header.scrolled nav a,
         #main-header.scrolled nav button {
-            color: black !important;
+            color: #4B5563 !important; /* Warna abu-abu gelap */
         }
 
         #main-header:not(.scrolled) #mobile-menu-button svg {
@@ -36,7 +41,7 @@
         }
 
         #main-header.scrolled #mobile-menu-button svg {
-            color: black !important;
+            color: #4B5563 !important; /* Warna abu-abu gelap */
         }
     </style>
 
