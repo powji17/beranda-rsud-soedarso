@@ -165,10 +165,11 @@ new Swiper(".mySwiper", {
     </div>
   </div>
 
-  <!--Redirect to another web-->
-  <div class="flex flex-col items-center justify-center gap-8 mx-auto mb-10 md:flex-row md:gap-24">
+  <!-- Redirect to another web -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mx-auto mb-10">
     <!-- Siranap -->
-    <div class="bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition">
+    <div
+      class="bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition h-full">
       <div class="bg-green-100 p-3 rounded-full mb-4 flex items-center justify-center">
         {{ $page := .Site.GetPage "siranap" }}
         {{ $recentImage := $page.RegularPages | first 1 }}
@@ -186,7 +187,8 @@ new Swiper(".mySwiper", {
     </div>
 
     <!-- Registrasi Online -->
-    <div class="bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition">
+    <div
+      class="bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition h-full">
       <div class="bg-green-100 p-3 rounded-full mb-4 flex items-center justify-center">
         {{ $page := .Site.GetPage "pendaftaran-online" }}
         {{ $recentImage := $page.RegularPages | first 1 }}
@@ -204,7 +206,8 @@ new Swiper(".mySwiper", {
     </div>
 
     <!-- Jadwal Operasi -->
-    <div class="bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition">
+    <div
+      class="bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition h-full">
       <div class="bg-green-100 p-3 rounded-full mb-4 flex items-center justify-center">
         {{ $page := .Site.GetPage "jadwal-operasi" }}
         {{ $recentImage := $page.RegularPages | first 1 }}
@@ -220,6 +223,7 @@ new Swiper(".mySwiper", {
         </a>
       </div>
     </div>
+
   </div>
 
   <!-- Berita -->
