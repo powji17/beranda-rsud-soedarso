@@ -94,6 +94,33 @@ new Swiper(".mySwiper", {
     behavior: "smooth" 
   });
   }
+
+  // Auto scroll Gallery
+  setInterval(() => {
+    const gallery = document.getElementById("galleryScroll");
+    if (gallery) {
+      const scrollAmount = 220; // ukuran 1 card
+      gallery.scrollBy({ left: scrollAmount, behavior: "smooth" });
+
+      // reset ke awal jika sudah di akhir
+      if (gallery.scrollLeft + gallery.clientWidth >= gallery.scrollWidth) {
+        gallery.scrollTo({ left: 0, behavior: "smooth" });
+      }
+    }
+  }, 3000); // tiap 3 detik
+
+  // Auto scroll Buletin
+  setInterval(() => {
+    const buletin = document.getElementById("buletinScroll");
+    if (buletin) {
+      const scrollAmount = 220; 
+      buletin.scrollBy({ left: scrollAmount, behavior: "smooth" });
+
+      if (buletin.scrollLeft + buletin.clientWidth >= buletin.scrollWidth) {
+        buletin.scrollTo({ left: 0, behavior: "smooth" });
+      }
+    }
+  }, 3000);
 </script>
 
 <!-- Judul Halaman dengan Video Background -->
@@ -384,11 +411,15 @@ new Swiper(".mySwiper", {
   <h2 class="text-3xl font-extrabold text-green-700 uppercase tracking-wide">Gallery</h2>
   <div class="w-12 h-1 bg-yellow-400 mt-1 mb-4 mx-auto rounded"></div>
 </div>
-<div class="relative">
+<div class="relative group">
   <!-- Tombol Prev -->
   <button onclick="scrollGallery(-1)" 
-          class="absolute left-0 top-1/2 -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10 hover:bg-gray-600">
-    ‹
+    class="absolute left-4 top-1/2 -translate-y-1/2 
+          bg-green-600/70 text-white 
+          w-16 h-16 flex items-center justify-center 
+          rounded-full z-10 opacity-0 group-hover:opacity-100 
+          transition shadow-lg">
+    <span class="text-4xl font-bold">‹</span>
   </button>
 
   <!-- Kontainer scroll -->
@@ -405,8 +436,12 @@ new Swiper(".mySwiper", {
 
   <!-- Tombol Next -->
   <button onclick="scrollGallery(1)" 
-          class="absolute right-0 top-1/2 -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10 hover:bg-gray-600">
-    ›
+    class="absolute right-4 top-1/2 -translate-y-1/2 
+          bg-green-600/70 text-white 
+          w-16 h-16 flex items-center justify-center 
+          rounded-full z-10 opacity-0 group-hover:opacity-100 
+          transition shadow-lg">
+    <span class="text-4xl font-bold">›</span>
   </button>
 </div>
 
@@ -415,11 +450,15 @@ new Swiper(".mySwiper", {
   <h2 class="text-3xl font-extrabold text-green-700 uppercase tracking-wide mt-4">Buletin RSUD Dokter Soedarso</h2>
   <div class="w-12 h-1 bg-yellow-400 mt-1 mb-4 mx-auto rounded"></div>
 </div>
-<div class="relative">
+<div class="relative group">
   <!-- Tombol Prev -->
-  <button onclick="scrollBuletin(-1)" 
-          class="absolute left-0 top-1/2 -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10 hover:bg-gray-600">
-    ‹
+  <button onclick="scrollBuletin(-1)"
+    class="absolute left-4 top-1/2 -translate-y-1/2 
+          bg-green-600/70 text-white 
+          w-16 h-16 flex items-center justify-center 
+          rounded-full z-10 opacity-0 group-hover:opacity-100 
+          transition shadow-lg">
+    <span class="text-4xl font-bold">‹</span>
   </button>
 
   <!-- Kontainer scroll -->
@@ -435,9 +474,13 @@ new Swiper(".mySwiper", {
   </div>
 
   <!-- Tombol Next -->
-  <button onclick="scrollBuletin(1)" 
-          class="absolute right-0 top-1/2 -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10 hover:bg-gray-600">
-    ›
+  <button onclick="scrollBuletin(1)"
+    class="absolute right-4 top-1/2 -translate-y-1/2 
+          bg-green-600/70 text-white 
+          w-16 h-16 flex items-center justify-center 
+          rounded-full z-10 opacity-0 group-hover:opacity-100 
+          transition shadow-lg">
+    <span class="text-4xl font-bold">›</span>
   </button>
 </div>
 
