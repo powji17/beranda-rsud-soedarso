@@ -54,7 +54,7 @@
         /* --- Akhir CSS Tambahan --- */
     </style>
 
-    <div class="flex flex-row justify-between w-full">
+    <div class="flex flex-row justify-between items-center max-w-7xl mx-auto w-full px-4">
         <a href='{{ absURL "/" }}' class="flex items-center flex-initial text-2xl font-extrabold capitalize break-words text-pretty">
             {{ if .Site.Params.logo }}
             <img src='{{ absURL "/" }}kalbar-logo.png' alt="{{ .Site.Title }}" class="mx-5 my-2" style="width: 48px;" />
@@ -85,7 +85,7 @@
                     </span>
                     <div class='language-dropdown w-screen md:w-52 absolute top-3/4 mt-2 flex-col gap-4 md:gap-2 {{ default "bg-defaultColor" $accent }} dark:bg-gray-900 z-10 hidden' style="border-radius: 8px; border-color: green; border-style: solid; border-width:1px">
                         {{ range .Children }}
-                        <a class="px-5 py-4 md:py-2" href="{{ .URL }}">{{ .Name }}</a>
+                        <a class="px-5 py-4 md:py-2 whitespace-nowrap" href="{{ .URL }}">{{ .Name }}</a>
                         {{ end }}
                     </div>
                 </li>
