@@ -1,56 +1,46 @@
 <footer class='relative {{ default "bg-defaultColor" .Site.Params.ascentColor }} text-white dark:bg-gray-900 mt-10'>
   <div class="absolute top-0 left-0 w-full overflow-hidden leading-[0] rotate-180">
-    <svg class="relative block w-full h-[80px]" xmlns="http://www.w.org/2000/svg" preserveAspectRatio="none"
-      viewBox="0 0 1200 120">
-    </svg>
+    <svg class="relative block w-full h-[80px]" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 1200 120">
+      </svg>
   </div>
 
-  <div class="relative container mx-auto px-6 py-4">
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
+  <div class="relative container mx-auto px-6 py-6">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-16 items-start">
 
-      <div class="flex flex-col items-center lg:items-start text-center lg:text-left">
+      <div class="flex flex-col items-center lg:items-start text-center lg:text-left space-y-4">
         <div class="flex items-center">
           {{ if .Site.Params.logo }}
-          <img src='{{ absURL "/" }}kalbar-logo.png' alt="{{ .Site.Title }}" class="w-12 h-auto mr-2"
-            style="width: 38px;" />
+          <img src='{{ absURL "/" }}kalbar-logo.png' alt="{{ .Site.Title }}" class="h-10 w-auto mr-2" />
           {{ else }}
-          <img src='{{ absURL "/" }}kalbar-logo.png' alt="{{ .Site.Title }}" class="w-12 h-auto mr-2"
-            style="width: 38px;" />
+          <img src='{{ absURL "/" }}kalbar-logo.png' alt="{{ .Site.Title }}" class="h-10 w-auto mr-2" />
           {{ end }}
-          <div>
-            <h2 class="text-xl font-semibold ml-2">RSUD Dokter Soedarso</h2>
-          </div>
+          <h2 class="text-xl font-semibold">RSUD Dokter Soedarso</h2>
         </div>
-        <div class="space-y-2">
-          <h3 class="text-lg font-bold text-white text-center lg:text-left mt-2">Hubungi Kami</h3>
+        
+        <h3 class="text-lg font-bold text-white mb-4">Hubungi Kami</h3>
+        <div class="space-y-3">
           <div class="flex items-center justify-center lg:justify-start">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2" class="mr-2 text-yellow-400">
-              <path
-                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
-              </path>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="mr-3 text-yellow-400 flex-shrink-0">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
             </svg>
             <span class="text-sm text-green-100">{{ .Site.Params.phone }}</span>
           </div>
           <div class="flex items-center justify-center lg:justify-start">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2" class="mr-2 text-yellow-400">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="mr-3 text-yellow-400 flex-shrink-0">
               <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
               <polyline points="22,6 12,13 2,6"></polyline>
             </svg>
             <span class="text-sm text-green-100">{{ .Site.Params.email }}</span>
           </div>
           <div class="flex items-start justify-center lg:justify-start">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2" class="mr-2 mt-1 text-yellow-400 flex-shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="mr-3 mt-1 text-yellow-400 flex-shrink-0">
               <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
               <circle cx="12" cy="10" r="3"></circle>
             </svg>
             <span class="text-sm text-green-100 text-left max-w-xs">{{ .Site.Params.address }}</span>
           </div>
           <div class="flex items-center justify-center lg:justify-start">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2" class="mr-2 mt-1 text-yellow-400 flex-shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="mr-3 text-yellow-400 flex-shrink-0">
               <path stroke="none" d="M0 0h24v24H0z" fill="none" />
               <path d="M3 15m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
               <path d="M15 15m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
@@ -58,69 +48,79 @@
               <path d="M6 15v-1a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v1" />
               <path d="M12 9l0 3" />
             </svg>
-            <span class="text-sm text-green-100">
+            <span class="text-sm text-green-100 hover:text-yellow-300 transition-colors">
               <a href='{{ absURL "/" }}sitemap'>Sitemap</a>
             </span>
           </div>
         </div>
       </div>
 
-      <div class="text-center">
-        <h3 class="text-lg font-bold mb-4 text-white text-center">Statistik Pengunjung</h3>
-        <div class="bg-green-700 p-6 rounded-lg border border-green-500 shadow-lg">
-          <div class="space-y-3 text-sm text-green-100 w-full">
-            <div class="flex items-center justify-center gap-3">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-400" viewBox="0 0 20 20"
-                fill="currentColor">
-                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                  clip-rule="evenodd" />
-              </svg>
-              <span class="font-medium">Hari Ini:</span>
-              <span id="visitors-today" class="font-bold">Memuat...</span>
-            </div>
-            <div class="flex items-center justify-center gap-3">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-400" viewBox="0 0 20 20"
-                fill="currentColor">
-                <path fill-rule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.72 7 7.938 7 10s-.488 4.28-1.756 4.679a6.012 6.012 0 01-1.912-2.706zM10 4c.85 0 1.673.112 2.432.321C11.42 5.52 11 7.643 11 10s.42 4.48 1.432 5.679A6.003 6.003 0 0110 16c-3.314 0-6-2.686-6-6s2.686-6 6-6z"
-                  clip-rule="evenodd" />
-              </svg>
-              <span class="font-medium">Total:</span>
-              <span id="visitors-total" class="font-bold">Memuat...</span>
-            </div>
-            <div class="flex items-center justify-center gap-3">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-400" viewBox="0 0 20 20"
-                fill="currentColor">
-                <path fill-rule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                  clip-rule="evenodd" />
-              </svg>
-              <span class="font-medium">Online:</span>
-              <span id="visitors-online" class="font-bold">Memuat...</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="text-center lg:text-left">
-        <h3 class="text-lg font-bold mb-4 text-white text-center">Lokasi Kami</h3>
+      <div class="text-center lg:text-left space-y-4">
+        <h3 class="text-lg font-bold text-white mb-4">Lokasi Kami</h3>
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15950.072283244888!2d109.354627!3d-0.061577!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e1d59f02c8a4edd%3A0x22ae606b4932892f!2sRSUD%20dr.%20Soedarso!5e0!3m2!1sid!2sid!4v1726973850000!5m2!1sid!2sid"
-          width="100%" height="200" style="border-radius: 8px;" allowfullscreen="" loading="lazy"
+          width="150" height="155" style="border-radius: 8px;" allowfullscreen="" loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
 
+      <div class="text-left space-y-4">
+        <h3 class="text-lg font-bold text-white mb-4">Statistik Pengunjung</h3>
+        <div class="grid gap-4 sm:grid-cols-3">
+
+          <!-- Card Hari Ini -->
+          <div class="bg-gradient-to-br from-green-600 to-green-700 p-5 rounded-2xl shadow-md hover:shadow-xl transition">
+            <div class="flex flex-col items-center text-center space-y-2">
+              <div class="bg-yellow-400/20 p-3 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-300" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <span class="text-sm text-green-100">Hari Ini</span>
+              <span id="visitors-today" class="text-2xl font-bold text-white">Memuat...</span>
+            </div>
+          </div>
+
+          <!-- Card Total -->
+          <div class="bg-gradient-to-br from-green-600 to-green-700 p-5 rounded-2xl shadow-md hover:shadow-xl transition">
+            <div class="flex flex-col items-center text-center space-y-2">
+              <div class="bg-yellow-400/20 p-3 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-300" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.72 7 7.938 7 10s-.488 4.28-1.756 4.679a6.012 6.012 0 01-1.912-2.706zM10 4c.85 0 1.673.112 2.432.321C11.42 5.52 11 7.643 11 10s.42 4.48 1.432 5.679A6.003 6.003 0 0110 16c-3.314 0-6-2.686-6-6s2.686-6 6-6z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <span class="text-sm text-green-100">Total</span>
+              <span id="visitors-total" class="text-2xl font-bold text-white">Memuat...</span>
+            </div>
+          </div>
+
+          <!-- Card Online -->
+          <div class="bg-gradient-to-br from-green-600 to-green-700 p-5 rounded-2xl shadow-md hover:shadow-xl transition">
+            <div class="flex flex-col items-center text-center space-y-2">
+              <div class="bg-green-400/20 p-3 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-300" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <span class="text-sm text-green-100">Online</span>
+              <span id="visitors-online" class="text-2xl font-bold text-white">Memuat...</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
     </div>
-    </div>
+  </div>
 
   <div class="bg-green-700 text-center py-4 border-t border-green-600">
     <p class="text-sm text-green-100">
       © {{ dateFormat "2006" now }} {{ .Site.Title }}
     </p>
   </div>
-  <div id="scrollToTopBtn" class="fixed bottom-4 right-4 p-1 cursor-pointer bg-white shadow-md rounded-full hidden"
+  
+  <div id="scrollToTopBtn" class="fixed bottom-4 right-4 p-2 cursor-pointer bg-white shadow-md rounded-full hidden hover:bg-gray-200 transition-colors"
     onclick="scrollToTop()">
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-black dark:text-black" fill="none" viewBox="0 0 24 24"
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-black" fill="none" viewBox="0 0 24 24"
       stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
     </svg>
@@ -157,52 +157,53 @@
   }
 
   if (darkStorage && darkStorage === 'dark') {
-    toggleDarkMode();
+    // Initial toggle if dark mode was saved
+    document.documentElement.classList.add('dark');
   }
 </script>
 {{ end }}
 
 <script>
-  // Fungsi untuk menyembunyikan loading screen dan menambahkan efek fade-in pada konten utama
+  // Hide loading screen with fade-out effect and fade-in main content
   function hideLoadingScreen() {
     const loadingScreen = document.getElementById('loading-screen');
     if (loadingScreen) {
-      loadingScreen.classList.add('hidden'); // Tambahkan class 'hidden' untuk menerapkan transisi
+      loadingScreen.style.opacity = '0';
+      setTimeout(() => {
+        loadingScreen.style.display = 'none';
+      }, 300); // Match transition duration
     }
     const mainContent = document.querySelector('main');
     if (mainContent) {
-      mainContent.classList.add('fade-in'); // Tambahkan class 'fade-in' untuk menerapkan efek fade-in
+      mainContent.classList.add('fade-in');
     }
   }
 
-  // Sembunyikan loading screen dan tambahkan efek fade-in setelah 300 milidetik
-  setTimeout(hideLoadingScreen, 300);
-</script>
+  window.addEventListener('load', () => {
+    setTimeout(hideLoadingScreen, 300);
+  });
 
-<script>
+  // Mobile menu toggle
   const mobileMenuButton = document.getElementById('mobile-menu-button');
   if (mobileMenuButton) {
     mobileMenuButton.addEventListener('click', function () {
-      var menu = document.getElementById('mobile-menu');
+      const menu = document.getElementById('mobile-menu');
       menu.classList.toggle('hidden');
     });
   }
-</script>
 
-<script>
+  // Smooth scroll to top function
   function scrollToTop() {
-    var currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
-    if (currentScroll > 0) {
-      window.requestAnimationFrame(scrollToTop);
-      window.scrollTo(0, currentScroll - currentScroll / 40);
-    }
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
   }
 
+  // Show/hide scroll-to-top button
   window.addEventListener('scroll', function () {
-    var scrollToTopBtn = document.getElementById('scrollToTopBtn');
-    var scrollY = window.scrollY || window.pageYOffset;
-
-    if (scrollY > 20) {
+    const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+    if (window.scrollY > 100) {
       scrollToTopBtn.style.display = 'block';
     } else {
       scrollToTopBtn.style.display = 'none';
@@ -212,34 +213,32 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    // Fungsi untuk format angka (misal: 1000 menjadi 1.000)
+    // Number formatting function (e.g., 1000 -> 1.000)
     function formatNumber(num) {
       return new Intl.NumberFormat('id-ID').format(num);
     }
 
-    // --- LOGIKA PENGHITUNG PENGUNJUNG ---
     const totalVisitorsElement = document.getElementById('visitors-total');
     const todayVisitorsElement = document.getElementById('visitors-today');
     const onlineVisitorsElement = document.getElementById('visitors-online');
 
-    // Pastikan elemen ada sebelum melanjutkan
     if (totalVisitorsElement && todayVisitorsElement && onlineVisitorsElement) {
-      // 1. STATISTIK TOTAL PENGUNJUNG
+      // 1. Total Visitors Logic
       let totalVisits = localStorage.getItem('totalVisits');
       if (totalVisits === null) {
         totalVisits = Math.floor(Math.random() * (2500 - 1000 + 1)) + 1000;
       } else {
-        totalVisits = parseInt(totalVisits);
+        totalVisits = parseInt(totalVisits, 10);
       }
       totalVisits++;
       localStorage.setItem('totalVisits', totalVisits);
       totalVisitorsElement.textContent = formatNumber(totalVisits);
 
-      // 2. STATISTIK HARI INI (Simulasi angka acak)
+      // 2. Today's Visitors (Simulated)
       const todayVisits = Math.floor(Math.random() * (200 - 50 + 1)) + 50;
       todayVisitorsElement.textContent = formatNumber(todayVisits);
 
-      // 3. STATISTIK ONLINE (Simulasi angka acak)
+      // 3. Online Visitors (Simulated)
       const onlineVisits = Math.floor(Math.random() * (15 - 2 + 1)) + 2;
       onlineVisitorsElement.textContent = formatNumber(onlineVisits);
     }
