@@ -42,21 +42,20 @@
             background-color: rgb(34 197 94) !important;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15) !important;
         }
+        /* Perbaikan untuk mode gelap */
+        .dark #main-header:not(.scrolled) {
+            background-color: transparent !important;
+            box-shadow: none !important;
+        }
 
+        .dark #main-header.scrolled {
+            background-color: #1a202c !important; /* Warna latar belakang gelap saat discroll */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15) !important;
+        }
+        
         /* Mode Gelap untuk elemen header lainnya, kecuali menu */
         .dark #main-header {
             background-color: #1a202c !important;
-        }
-        
-        /* Mengubah warna teks dan ikon di luar menu saat mode gelap aktif */
-        .dark #main-header .text-white,
-        .dark #main-header .mobile-menu-button svg {
-            color: #e2e8f0 !important;
-            stroke: #e2e8f0 !important;
-        }
-        
-        .dark #main-header .hover\:text-green-900:hover {
-            color: #fbbf24 !important;
         }
     </style>
 
@@ -67,9 +66,9 @@
             {{ else }}
             <img src='{{ absURL "/" }}kalbar-logo.png' alt="{{ .Site.Title }}" class="mx-5 my-0" style="width: 48px;" />
             {{ end }}
-            <span class="mr-12 font-bold text-white break-words whitespace-nowrap hover:text-green-900 dark:hover:text-yellow-400 text-pretty" style="font-size: 20px;">RSUD<br>Dokter Soedarso</span>
+            <span class="mr-12 font-bold text-white break-words whitespace-nowrap hover:text-green-900 text-pretty" style="font-size: 20px;">RSUD<br>Dokter Soedarso</span>
         </a>
-        <button id="mobile-menu-button" class="flex-initial text-white mobile-menu-button md:hidden hover:text-green-900 dark:hover:text-yellow-400">
+        <button id="mobile-menu-button" class="flex-initial text-white mobile-menu-button md:hidden hover:text-green-900">
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                 <line x1="4" y1="8" x2="20" y2="8" />
