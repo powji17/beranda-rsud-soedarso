@@ -1,9 +1,16 @@
 <header id="main-header" class="flex flex-wrap justify-between items-center mx-auto sticky top-0 z-50 w-full transition-all duration-300">
     <style>
+        /* Transisi untuk semua elemen teks dan SVG di dalam header */
+        #main-header,
+        #main-header a,
+        #main-header span,
+        #main-header svg {
+            transition: all 0.3s ease;
+        }
+
         ul.mobile-menu li a {
             font-size: 0.9rem;
             padding: 8px;
-            transition: color 0.3s ease, background-color 0.3s ease, border 0.3s ease;
         }
 
         ul.mobile-menu li a:hover {
@@ -11,23 +18,13 @@
             border-radius: 8px;
         }
 
-        .dark ul.mobile-menu li a:hover {
-            color: #fbbf24;
-            border-radius: 8px;
-        }
-
         ul.mobile-menu li .language-dropdown a {
             padding: 11px;
             border-radius: 8px;
-            transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
         }
 
         ul.mobile-menu li .language-dropdown a:hover {
             color: #064e3b;
-        }
-
-        .dark ul.mobile-menu li .language-dropdown a:hover {
-            color: #fbbf24;
         }
 
         /* --- CSS Tambahan untuk Dropdown --- */
@@ -39,7 +36,7 @@
             display: flex;
         }
 
-        /* --- CSS Tambahan untuk Efek Transparan --- */
+        /* --- CSS untuk Efek Transparan dan Mode Gelap --- */
         #main-header:not(.scrolled) {
             position: fixed;
             background-color: transparent !important;
@@ -51,17 +48,54 @@
             background-color: rgb(34 197 94) !important;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15) !important;
         }
-        /* --- Akhir CSS Tambahan --- */
+
+        /* Mode Gelap - Warna dasar */
+        .dark #main-header {
+            background-color: #1a202c !important;
+        }
+
+        .dark #main-header .text-white {
+            color: #e2e8f0 !important;
+        }
+        
+        .dark #main-header .mobile-menu-button svg {
+            stroke: #e2e8f0 !important;
+        }
+
+        .dark #main-header .text-green-900 {
+            color: #e2e8f0 !important;
+        }
+
+        .dark #main-header .hover\:text-green-900:hover,
+        .dark #mobile-menu li a:hover,
+        .dark .language-dropdown a:hover {
+            color: #fbbf24 !important;
+        }
+        
+        /* Pastikan menu drop-down tetap gelap */
+        .dark .language-dropdown,
+        .dark #mobile-menu {
+            background-color: #1a202c !important;
+            border-color: #4a5568 !important;
+        }
+
+        .dark #mobile-menu li a {
+            color: #e2e8f0;
+        }
+
     </style>
 
     <div class="flex flex-row justify-between items-center max-w-7xl mx-auto w-full px-4">
-        <a href='{{ absURL "/" }}' class="flex items-center flex-initial text-2xl font-extrabold capitalize break-words text-pretty">
+        <a href='{{ absURL "/" }}' class="flex items-center flex-initial text-pretty">
             {{ if .Site.Params.logo }}
             <img src='{{ absURL "/" }}kalbar-logo.png' alt="{{ .Site.Title }}" class="mx-5 my-2" style="width: 48px;" />
             {{ else }}
             <img src='{{ absURL "/" }}kalbar-logo.png' alt="{{ .Site.Title }}" class="mx-5 my-0" style="width: 48px;" />
             {{ end }}
-            <span class="mr-12 font-bold text-white break-words hover:text-green-900 dark:hover:text-yellow-400 text-pretty" style="font-size: 20px;">{{ .Site.Title }}</span>
+            <div class="mr-12 text-white hover:text-green-900 dark:hover:text-yellow-400" style="font-size: 18px;">
+                <span>RSUD</span><br>
+                <span class="font-bold">DOKTER SOEDARSO</span>
+            </div>
         </a>
         <button id="mobile-menu-button" class="flex-initial text-white mobile-menu-button md:hidden hover:text-green-900 dark:hover:text-yellow-400">
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -71,56 +105,33 @@
             </svg>
         </button>
         {{ $accent := .Site.Params.ascentColor }}
-        <ul id="mobile-menu" class='text-gray-100 mobile-menu absolute z-10 pb-6 md:p-0 top-full w-full md:w-auto md:relative hidden md:flex md:flex-row flex-auto place-self-end text-pretty flex-col place-content-end md:items-center gap-4 lg:gap-2 dark:bg-gray-900 mr-8 my-auto'>
+        <ul id="mobile-menu" class='text-gray-100 mobile-menu absolute z-10 pb-6 md:p-0 top-full w-full md:w-auto md:relative hidden md:flex md:flex-row flex-auto place-self-end text-pretty flex-col place-content-end md:items-center gap-4 lg:gap-2 mr-8 my-auto'>
             <li class="my-4"><a href='{{ absURL "/" }}' class="whitespace-nowrap">Beranda</a></li>
             {{ range .Site.Menus.main }}
-                {{ $menuURL := .URL }}
-                {{ $menuName := .Name }}
-                {{ $menuHasChildren := .HasChildren }}
-                {{ if $menuHasChildren }}
-                <li class="relative px-4 my-2 cursor-pointer md:px-1" data-dropdown>
-                    <span class="flex items-center gap-2">
-                        <a href="{{ $menuURL }}" class="whitespace-nowrap">{{ $menuName }}</a>
-                        <svg class="w-4 h-4 transition-transform duration-200" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
-                    </span>
-                    <div class='language-dropdown w-screen md:w-52 absolute top-3/4 mt-2 flex-col gap-4 md:gap-2 {{ default "bg-defaultColor" $accent }} dark:bg-gray-900 z-10 hidden' style="border-radius: 8px; border-color: green; border-style: solid; border-width:1px">
-                        {{ range .Children }}
-                        <a class="px-5 py-4 md:py-2 whitespace-nowrap" href="{{ .URL }}">{{ .Name }}</a>
-                        {{ end }}
-                    </div>
-                </li>
-                {{ else }}
-                <li class="px-4 my-4 md:px-1"><a href="{{ $menuURL }}" class="whitespace-nowrap">{{ $menuName }}</a></li>
-                {{ end }}
+            {{ $menuURL := .URL }}
+            {{ $menuName := .Name }}
+            {{ $menuHasChildren := .HasChildren }}
+            {{ if $menuHasChildren }}
+            <li class="relative px-4 my-2 cursor-pointer md:px-1" data-dropdown>
+                <span class="flex items-center gap-2">
+                    <a href="{{ $menuURL }}" class="whitespace-nowrap">{{ $menuName }}</a>
+                    <svg class="w-4 h-4 transition-transform duration-200" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+                </span>
+                <div class='language-dropdown w-screen md:w-52 absolute top-3/4 mt-2 flex-col gap-4 md:gap-2 {{ default "bg-defaultColor" $accent }} dark:bg-gray-900 dark:text-white z-10 hidden' style="border-radius: 8px; border-color: green; border-style: solid; border-width:1px">
+                    {{ range .Children }}
+                    <a class="px-5 py-4 md:py-2 whitespace-nowrap" href="{{ .URL }}">{{ .Name }}</a>
+                    {{ end }}
+                </div>
+            </li>
+            {{ else }}
+            <li class="px-4 my-4 md:px-1"><a href="{{ $menuURL }}" class="whitespace-nowrap">{{ $menuName }}</a></li>
+            {{ end }}
             {{ end }}
             {{ if hugo.IsMultilingual }}
-                {{ if ge (len .Site.Languages) 3 }}
-                <li class="relative my-2 cursor-pointer" data-dropdown>
-                    <span class="flex items-center gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <circle cx="12" cy="12" r="9" />
-                            <line x1="3.6" y1="9" x2="20.4" y2="9" />
-                            <line x1="3.6" y1="15" x2="20.4" y2="15" />
-                            <path d="M11.5 3a17 17 0 0 0 0 18" />
-                            <path d="M12.5 3a17 17 0 0 1 0 18" />
-                        </svg>
-                        <a class="whitespace-nowrap">{{ i18n "languageSwitcherLabel" }}</a>
-                        <svg class="w-4 h-4 transition-transform duration-200" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
-                    </span>
-                    <div class='language-dropdown w-screen md:w-52 absolute top-3/4 mt-2 flex-col gap-2 {{ default "bg-defaultColor" $accent }} dark:bg-gray-900 dark:text-white z-10 hidden' style="border-radius: 8px; border-color: green; border-style: solid; border-width:1px">
-                        {{ range .Children }}
-                        {{ if not (eq .Lang $.Site.Language.Lang) }}
-                        <a class="px-3 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 whitespace-nowrap" href="/{{ .Lang }}" lang="{{ .Lang }}">{{ default .Lang .LanguageName }}</a>
-                        {{ end }}
-                        {{ end }}
-                    </div>
-                </li>
-                {{ else }}
-                <li class="flex items-center my-2">
-                    {{ range .Site.Languages }}
-                    {{ if not (eq .Lang $.Site.Language.Lang) }}
-                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            {{ if ge (len .Site.Languages) 3 }}
+            <li class="relative my-2 cursor-pointer" data-dropdown>
+                <span class="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                         <circle cx="12" cy="12" r="9" />
                         <line x1="3.6" y1="9" x2="20.4" y2="9" />
@@ -128,11 +139,34 @@
                         <path d="M11.5 3a17 17 0 0 0 0 18" />
                         <path d="M12.5 3a17 17 0 0 1 0 18" />
                     </svg>
-                    <a href="/{{ .Lang }}" lang="{{ .Lang }}" class="whitespace-nowrap">{{ default .Lang .LanguageName }}</a>
+                    <a class="whitespace-nowrap">{{ i18n "languageSwitcherLabel" }}</a>
+                    <svg class="w-4 h-4 transition-transform duration-200" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+                </span>
+                <div class='language-dropdown w-screen md:w-52 absolute top-3/4 mt-2 flex-col gap-2 {{ default "bg-defaultColor" $accent }} dark:bg-gray-900 dark:text-white z-10 hidden' style="border-radius: 8px; border-color: green; border-style: solid; border-width:1px">
+                    {{ range .Site.Languages }}
+                    {{ if not (eq .Lang $.Site.Language.Lang) }}
+                    <a class="px-3 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 whitespace-nowrap" href="/{{ .Lang }}" lang="{{ .Lang }}">{{ default .Lang .LanguageName }}</a>
                     {{ end }}
                     {{ end }}
-                </li>
+                </div>
+            </li>
+            {{ else }}
+            <li class="flex items-center my-2">
+                {{ range .Site.Languages }}
+                {{ if not (eq .Lang $.Site.Language.Lang) }}
+                <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <circle cx="12" cy="12" r="9" />
+                    <line x1="3.6" y1="9" x2="20.4" y2="9" />
+                    <line x1="3.6" y1="15" x2="20.4" y2="15" />
+                    <path d="M11.5 3a17 17 0 0 0 0 18" />
+                    <path d="M12.5 3a17 17 0 0 1 0 18" />
+                </svg>
+                <a href="/{{ .Lang }}" lang="{{ .Lang }}" class="whitespace-nowrap">{{ default .Lang .LanguageName }}</a>
                 {{ end }}
+                {{ end }}
+            </li>
+            {{ end }}
             {{ end }}
             {{ if .Site.Params.darkModeToggle }}
             <li class="grid place-items-center">
@@ -175,6 +209,18 @@
             $('#mobile-menu-button').on('click', function() {
                 $('#mobile-menu').toggleClass('hidden');
             });
+
+            // Logika mode gelap
+            $('.toggle-dark-mode').on('click', function() {
+                $('body').toggleClass('dark');
+            });
+
+            // Memeriksa status mode gelap saat halaman dimuat
+            if ($('body').hasClass('dark')) {
+                $('#main-header').addClass('dark');
+            } else {
+                $('#main-header').removeClass('dark');
+            }
         });
     </script>
 </header>
