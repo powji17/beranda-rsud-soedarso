@@ -1,4 +1,4 @@
-<header class='flex flex-wrap justify-between items-center mx-auto sticky top-0 z-50 w-full {{ default "bg-defaultColor" .Site.Params.ascentColor }} dark:bg-gray-900'>
+<header class='flex flex-wrap justify-between items-center mx-auto sticky top-0 z-50 w-full {{ default "bg-defaultColor" .Site.Params.ascentColor }} dark:bg-gray-900 transition duration-300'>
   <style>
     ul.mobile-menu li a {
       font-size: 0.9rem;
@@ -30,9 +30,16 @@
     .dark ul.mobile-menu li .language-dropdown a:hover {
       color: #fbbf24;
     }
-
-
   </style>
+
+  <script>
+    $(document).ready(function() {
+      $('#mobile-menu li').click(function() {
+        $('#mobile-menu li').removeClass('active');
+        $(this).addClass('active');
+      });
+    });
+  </script>
 
   <div class="flex flex-row justify-between w-full">
     <a href='{{ absURL "/" }}' class="flex items-center flex-initial text-2xl font-extrabold capitalize break-words text-pretty">
@@ -52,7 +59,7 @@
     </button>
     {{ $accent := .Site.Params.ascentColor }}
     <ul id="mobile-menu" class=' text-gray-100  mobile-menu  absolute z-10 pb-6 md:p-0 top-full w-full md:w-auto md:relative hidden md:flex md:flex-row flex-auto place-self-end text-pretty flex-col place-content-end md:items-center gap-4 lg:gap-2
-    {{ default "bg-defaultColor" $accent }} dark:bg-gray-900
+    {{ default "bg-defaultColor" $accent }} dark:bg-gray-900 transition duration-300
      mr-8 my-auto' >
       <li class="my-4"><a href='{{ absURL "/" }}'>Beranda</a></li>
       {{ range .Site.Menus.main }}
@@ -60,9 +67,9 @@
         {{ $menuName := .Name }}
         {{ $menuHasChildren := .HasChildren }}
         {{ if $menuHasChildren }}
-        <li class="relative px-4 my-2 cursor-pointer md:px-1">
+        <li class="relative px-4 my-2 whitespace-nowrap cursor-pointer md:px-1">
           <span class="flex items-center gap-2 language-switcher">
-            <a class="whitespace-nowrap">{{ $menuName }}</a>
+            <a>{{ $menuName }}</a>
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
               <path d="M18 15l-6 -6l-6 6h12" transform="rotate(180 12 12)"></path>
@@ -158,16 +165,5 @@
     </li>
     {{ end }}
   -->
-
-
-
-  <script>
-  $(document).ready(function() {
-    $('#mobile-menu li').click(function() {
-      $('#mobile-menu li').removeClass('active');
-      $(this).addClass('active');
-    });
-  });
-</script>
 
 </header>
