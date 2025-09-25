@@ -459,7 +459,7 @@ new Swiper(".mySwiper", {
   </button>
 
   <!-- Kontainer scroll -->
-  <div id="buletinScroll" class="flex gap-4 overflow-x-auto pb-4 scroll-smooth">
+  <div id="buletinScroll" class="flex gap-4 overflow-x-auto pb-4 scroll-smooth mb-6">
     {{ range first 50 (where .Site.RegularPages.ByDate.Reverse "Section" "buletin") }}
     <a href="{{ .RelPermalink }}" class="w-64 h-41 bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden flex-shrink-0">
       <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="w-full h-32 object-cover">
