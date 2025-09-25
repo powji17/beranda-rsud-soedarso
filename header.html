@@ -62,7 +62,7 @@
         {{ if $menuHasChildren }}
         <li class="relative px-4 my-2 cursor-pointer md:px-1">
           <span class="flex items-center gap-2 language-switcher">
-            <a>{{ $menuName }}</a>
+            <a class="whitespace-nowrap">{{ $menuName }}</a>
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
               <path d="M18 15l-6 -6l-6 6h12" transform="rotate(180 12 12)"></path>
@@ -75,7 +75,7 @@
           </div>
         </li>
         {{ else }}
-          <li class="px-4 my-4 md:px-1"><a href="{{ $menuURL }}">{{ $menuName }}</a></li>
+          <li class="px-4 my-4 md:px-1 whitespace-nowrap"><a href="{{ $menuURL }}">{{ $menuName }}</a></li>
         {{ end }}
       {{ end }}
         {{ if hugo.IsMultilingual }}
