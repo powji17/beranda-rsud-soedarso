@@ -4,15 +4,15 @@
       </svg>
   </div>
 
-  <div class="relative container mx-auto px-6 py-6">
+  <div class="relative container mx-auto px-6 pt-2 pb-6">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-16 items-start">
 
-      <div class="flex flex-col items-center lg:items-start text-center lg:text-left space-y-4">
+      <div class="flex flex-col items-center lg:items-start text-center lg:text-left">
         <div class="flex items-center">
           {{ if .Site.Params.logo }}
-          <img src='{{ absURL "/" }}kalbar-logo.png' alt="{{ .Site.Title }}" class="h-10 w-auto mr-2" />
+          <img src='{{ absURL "/" }}kalbar-logo.png' alt="{{ .Site.Title }}" class="h-16 w-auto mr-3" />
           {{ else }}
-          <img src='{{ absURL "/" }}kalbar-logo.png' alt="{{ .Site.Title }}" class="h-10 w-auto mr-2" />
+          <img src='{{ absURL "/" }}kalbar-logo.png' alt="{{ .Site.Title }}" class="h-16 w-auto mr-3" />
           {{ end }}
           <h2 class="text-xl font-semibold">RSUD Dokter Soedarso</h2>
         </div>
@@ -55,16 +55,16 @@
         </div>
       </div>
 
-      <div class="text-left space-y-4 shadow-md hover:shadow-xl transition">
-        <h3 class="text-lg font-bold text-white mb-4">Lokasi Kami</h3>
+      <div class="text-center space-y-4 shadow-md hover:shadow-xl transition pt-4">
+        <h3 class="text-xl font-semibold text-white mb-4">Lokasi Kami</h3>
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15950.072283244888!2d109.354627!3d-0.061577!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e1d59f02c8a4edd%3A0x22ae606b4932892f!2sRSUD%20dr.%20Soedarso!5e0!3m2!1sid!2sid!4v1726973850000!5m2!1sid!2sid"
           width="150" height="155" style="border-radius: 8px;" allowfullscreen="" loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
 
-      <div class="text-left space-y-4">
-        <h3 class="text-lg font-bold text-white mb-4">Statistik Pengunjung</h3>
+      <div class="text-center space-y-4 pt-4">
+        <h3 class="text-xl font-semibold text-white mb-4">Statistik Pengunjung</h3>
         <div class="grid gap-4 sm:grid-cols-3">
 
           <!-- Card Hari Ini -->
