@@ -45,6 +45,14 @@
     display: none; /* Chrome, Safari, Opera */
   }
 
+  #linkScroll {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE dan Edge lama */
+  }
+  #linkScroll::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+
   .block.w-full.p-4.mb-4.bg-white.shadow-md.rounded-lg.overflow-hidden.transition-all.duration-300.hover {
     border-top-width: 4px;
     border-color: #34D399;
@@ -63,36 +71,46 @@
 <!-- Initialize Swiper & Scroller -->
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-new Swiper(".mySwiper", {
-  slidesPerView: 1,
-  loop: true,
-  autoplay: { delay: 3000 },
-  pagination: { el: ".mySwiper .swiper-pagination", clickable: true },
-  navigation: {
-    nextEl: ".mySwiper .swiper-button-next",
-    prevEl: ".mySwiper .swiper-button-prev"
-    }
-  });
+  new Swiper(".mySwiper", {
+    slidesPerView: 1,
+    loop: true,
+    autoplay: { delay: 3000 },
+    pagination: { el: ".mySwiper .swiper-pagination", clickable: true },
+    navigation: {
+      nextEl: ".mySwiper .swiper-button-next",
+      prevEl: ".mySwiper .swiper-button-prev"
+      }
+    });
   });
 
   function scrollGallery(direction) {
-  const container = document.getElementById("galleryScroll");
-  if (!container) return;
-  const scrollAmount = 220; // ukuran satu card
-  container.scrollBy({ 
-    left: direction * scrollAmount, 
-    behavior: "smooth" 
-  });
+    const container = document.getElementById("galleryScroll");
+    if (!container) return;
+    const scrollAmount = 220;
+    container.scrollBy({ 
+      left: direction * scrollAmount, 
+      behavior: "smooth" 
+    });
   }
 
   function scrollBuletin(direction) {
-  const container = document.getElementById("buletinScroll");
-  if (!container) return;
-  const scrollAmount = 250;
-  container.scrollBy({ 
-    left: direction * scrollAmount, 
-    behavior: "smooth" 
-  });
+    const container = document.getElementById("buletinScroll");
+    if (!container) return;
+    const scrollAmount = 250;
+    container.scrollBy({ 
+      left: direction * scrollAmount, 
+      behavior: "smooth" 
+    });
+  }
+
+  function scrollLink(direction) {
+    const container = document.getElementById("linkScroll");
+    if (!container) return;
+    const scrollAmount = 352; 
+    container.scrollBy({ 
+      left: direction * scrollAmount, 
+      behavior: "smooth" 
+    });
   }
 
   // Auto scroll Gallery
@@ -123,26 +141,16 @@ new Swiper(".mySwiper", {
   }, 3000);
 </script>
 
-<!-- Judul Halaman dengan Video Background -->
+<!-- Video -->
 <section class="relative w-full" style="height: 90vh;">
   <!-- Video Background -->
   <video autoplay muted loop playsinline class="absolute top-0 left-0 w-full h-full object-cover">
-    <source src="video/bg-video.mp4" type="video/mp4">
+    <source src="video/video-background.mp4" type="video/mp4">
     Browser Anda tidak mendukung video tag.
   </video>
-
-  <!-- Overlay -->
-  <div class="absolute inset-0" style="background: rgba(0, 0, 0, 0.2);"></div>
-
-  <!-- Judul Utama -->
-  <div class="relative flex items-center justify-center h-full">
-    <h1 class="text-white text-3xl md:text-5xl font-bold text-center drop-shadow-lg">
-      Website Resmi<br>RSUD Dokter Soedarso
-    </h1>
-  </div>
 </section>
 
-<!-- ====== Layout Utama ====== -->
+<!-- Pengumuman - Infografis -->
 <div class="max-w-6xl mx-auto px-4 py-8">
 
   <!-- Baris: Pengumuman & Infografis -->
@@ -192,11 +200,28 @@ new Swiper(".mySwiper", {
     </div>
   </div>
 
-  <!-- Redirect to another web -->
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mx-auto mb-10">
-    <!-- Siranap -->
-    <div
-      class="bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition h-full">
+</div>
+
+<!-- Link Terkait -->
+<div class="flex flex-col items-center mb-6">
+  <h2 class="text-3xl font-extrabold text-green-700 uppercase tracking-wide">Link Terkait</h2>
+  <div class="w-12 h-1 bg-yellow-400 mt-1 mx-auto rounded"></div>
+</div>
+
+<div class="relative group">
+  <!-- Tombol Prev -->
+  <button onclick="scrollLink(-1)" 
+    class="absolute left-4 top-1/4 -translate-y-1/2 
+          bg-green-500 bg-opacity-60 text-white 
+          w-16 h-16 flex items-center justify-center 
+          rounded-full z-10 opacity-0 group-hover:opacity-100 
+          transition shadow-lg">
+    <span class="text-4xl font-bold">‹</span>
+  </button>
+
+  <div id="linkScroll" class="flex gap-4 overflow-x-auto pb-4 scroll-smooth">
+
+    <div class="w-80 flex-shrink-0 bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition h-full">
       <div class="bg-green-100 p-3 rounded-full mb-4 flex items-center justify-center">
         {{ $page := .Site.GetPage "siranap" }}
         {{ $recentImage := $page.RegularPages | first 1 }}
@@ -206,16 +231,13 @@ new Swiper(".mySwiper", {
       </div>
       <div class="flex-grow flex flex-col justify-between">
         <h3 class="text-lg font-semibold text-gray-800">Ketersediaan Kamar Rawat Inap</h3>
-        <a href="https://itrsudsoedarso.kalbarprov.go.id/siranaponline/"
-          class="mt-4 px-5 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition">
+        <a href="https://itrsudsoedarso.kalbarprov.go.id/siranaponline/" class="mt-4 px-5 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition">
           Lihat
         </a>
       </div>
     </div>
 
-    <!-- Registrasi Online -->
-    <div
-      class="bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition h-full">
+    <div class="w-80 flex-shrink-0 bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition h-full">
       <div class="bg-green-100 p-3 rounded-full mb-4 flex items-center justify-center">
         {{ $page := .Site.GetPage "pendaftaran-online" }}
         {{ $recentImage := $page.RegularPages | first 1 }}
@@ -225,16 +247,13 @@ new Swiper(".mySwiper", {
       </div>
       <div class="flex-grow flex flex-col justify-between">
         <h3 class="text-lg font-semibold text-gray-800">Pendaftaran Online</h3>
-        <a href="https://itrsudsoedarso.kalbarprov.go.id/registrasionline/Login"
-          class="mt-4 px-5 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition">
+        <a href="https://itrsudsoedarso.kalbarprov.go.id/registrasionline/Login" class="mt-4 px-5 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition">
           Lihat
         </a>
       </div>
     </div>
 
-    <!-- Jadwal Operasi -->
-    <div
-      class="bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition h-full">
+    <div class="w-80 flex-shrink-0 bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition h-full">
       <div class="bg-green-100 p-3 rounded-full mb-4 flex items-center justify-center">
         {{ $page := .Site.GetPage "jadwal-operasi" }}
         {{ $recentImage := $page.RegularPages | first 1 }}
@@ -244,7 +263,111 @@ new Swiper(".mySwiper", {
       </div>
       <div class="flex-grow flex flex-col justify-between">
         <h3 class="text-lg font-semibold text-gray-800">Jadwal Operasi RSUD Soedarso</h3>
-        <a href="https://itrsudsoedarso.kalbarprov.go.id/jadwaloperasi/Display/index/"
+        <a href="https://itrsudsoedarso.kalbarprov.go.id/jadwaloperasi/Display/index/" class="mt-4 px-5 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition">
+          Lihat
+        </a>
+      </div>
+    </div>
+    
+    <!-- Lapor SP4N -->
+    <div
+      class="bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition h-full">
+      <div class="bg-green-100 p-3 rounded-full mb-4 flex items-center justify-center">
+        <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="h-20 w-20 object-contain">
+      </div>
+      <div class="flex-grow flex flex-col justify-between">
+        <h3 class="text-lg font-semibold text-gray-800">Lapor SP4N</h3>
+        <a href="https://www.lapor.go.id/"
+          class="mt-4 px-5 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition">
+          Lihat
+        </a>
+      </div>
+    </div>
+
+    <!-- PPID -->
+    <div
+      class="bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition h-full">
+      <div class="bg-green-100 p-3 rounded-full mb-4 flex items-center justify-center">
+        <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="h-20 w-20 object-contain">
+      </div>
+      <div class="flex-grow flex flex-col justify-between">
+        <h3 class="text-lg font-semibold text-gray-800">PPID</h3>
+        <a href="https://ppid.rsds.my.id/"
+          class="mt-4 px-5 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition">
+          Lihat
+        </a>
+      </div>
+    </div>
+
+    <!-- SIKEDIP -->
+    <div
+      class="bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition h-full">
+      <div class="bg-green-100 p-3 rounded-full mb-4 flex items-center justify-center">
+        <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="h-20 w-20 object-contain">
+      </div>
+      <div class="flex-grow flex flex-col justify-between">
+        <h3 class="text-lg font-semibold text-gray-800">SIKEDIP</h3>
+        <a href="https://sikedip.kalbarprov.go.id/home"
+          class="mt-4 px-5 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition">
+          Lihat
+        </a>
+      </div>
+    </div>
+
+    <!-- Whistle Blowing -->
+    <div
+      class="bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition h-full">
+      <div class="bg-green-100 p-3 rounded-full mb-4 flex items-center justify-center">
+        <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="h-20 w-20 object-contain">
+      </div>
+      <div class="flex-grow flex flex-col justify-between">
+        <h3 class="text-lg font-semibold text-gray-800">Whistle Blowing</h3>
+        <a href="https://ppid.rsds.my.id/p/white-blowing.html?m=0"
+          class="mt-4 px-5 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition">
+          Lihat
+        </a>
+      </div>
+    </div>
+
+    <!-- SIPP MENPAN -->
+    <div
+      class="bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition h-full">
+      <div class="bg-green-100 p-3 rounded-full mb-4 flex items-center justify-center">
+        <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="h-20 w-20 object-contain">
+      </div>
+      <div class="flex-grow flex flex-col justify-between">
+        <h3 class="text-lg font-semibold text-gray-800">SIPP MENPAN</h3>
+        <a href="https://sippn.menpan.go.id/"
+          class="mt-4 px-5 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition">
+          Lihat
+        </a>
+      </div>
+    </div>
+
+    <!-- LHKPN 2023 -->
+    <div
+      class="bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition h-full">
+      <div class="bg-green-100 p-3 rounded-full mb-4 flex items-center justify-center">
+        <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="h-20 w-20 object-contain">
+      </div>
+      <div class="flex-grow flex flex-col justify-between">
+        <h3 class="text-lg font-semibold text-gray-800">LHKPN 2023</h3>
+        <a href="https://drive.google.com/drive/folders/1t8X9OqgVLkSMDTz8iHVZpxb_HBAZNUqE"
+          class="mt-4 px-5 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition">
+          Lihat
+        </a>
+      </div>
+    </div>
+
+    <!-- BANG TESI SILAT -->
+    <div
+      class="bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition h-full">
+      <div class="bg-green-100 p-3 rounded-full mb-4 flex items-center justify-center">
+        <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="h-20 w-20 object-contain">
+      </div>
+      <div class="flex-grow flex flex-col justify-between">
+        <h3 class="text-lg font-semibold text-gray-800">BANG TESI SILAT</h3>
+        <a href="https://rsuddrsoedarso.kalbarprov.go.id/bang-tesi-silat/bang-tesi-silat/"
           class="mt-4 px-5 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition">
           Lihat
         </a>
@@ -253,8 +376,22 @@ new Swiper(".mySwiper", {
 
   </div>
 
+  <!-- Tombol Next -->
+  <button onclick="scrollLink(1)"
+    class="absolute right-4 top-1/4 -translate-y-1/2 
+          bg-green-500 bg-opacity-60 text-white 
+          w-16 h-16 flex items-center justify-center 
+          rounded-full z-10 opacity-0 group-hover:opacity-100 
+          transition shadow-lg">
+    <span class="text-4xl font-bold">›</span>
+  </button>
+</div>
+
+<!-- Berita - Agenda -->  
+<div class="max-w-6xl mx-auto px-4 py-8">
+
   <!-- Berita -->
-  <div class="flex flex-col items-center mt-10 mb-6">
+  <div class="flex flex-col items-center mt-2 mb-6">
     <h2 class="text-3xl font-extrabold text-green-700 uppercase tracking-wide">Berita</h2>
     <div class="w-12 h-1 bg-yellow-400 mt-1 mx-auto rounded"></div>
   </div>
@@ -401,7 +538,6 @@ new Swiper(".mySwiper", {
   </div>
 
 </div>
-<!-- ====== End Layout Utama ====== -->
 
 <!-- Gallery -->
 <div class="flex flex-col items-center mt-2">
