@@ -208,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
   <div class="w-12 h-1 bg-yellow-400 mt-1 mx-auto rounded"></div>
 </div>
 
-<div class="relative group">
+<div class="relative group max-w-full mx-auto px-4">
   <!-- Tombol Prev -->
   <button onclick="scrollLink(-1)" 
     class="absolute left-4 top-1/4 -translate-y-1/2 
@@ -221,154 +221,133 @@ document.addEventListener('DOMContentLoaded', () => {
 
   <div id="linkScroll" class="flex gap-4 overflow-x-auto pb-4 scroll-smooth">
 
-    <div class="w-80 flex-shrink-0 bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition h-full">
+    <div class="w-56 flex-shrink-0 bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition zoom-in link-card">
       <div class="bg-green-100 p-3 rounded-full mb-4 flex items-center justify-center">
         {{ $page := .Site.GetPage "siranap" }}
         {{ $recentImage := $page.RegularPages | first 1 }}
         {{ range $recentImage }}
-        <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="h-20 w-20 object-contain">
+        <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="h-16 w-16 object-contain">
         {{ end }}
       </div>
-      <div class="flex-grow flex flex-col justify-between">
-        <h3 class="text-lg font-semibold text-gray-800">Ketersediaan Kamar Rawat Inap</h3>
-        <a href="https://itrsudsoedarso.kalbarprov.go.id/siranaponline/" class="mt-4 px-5 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition">
+      <div class="flex flex-col justify-between items-center flex-grow">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4 title">Ketersediaan Kamar Rawat Inap</h3>
+        <a href="https://itrsudsoedarso.kalbarprov.go.id/siranaponline/" class="w-full px-5 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition">
           Lihat
         </a>
       </div>
     </div>
 
-    <div class="w-80 flex-shrink-0 bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition h-full">
+    <div class="w-56 flex-shrink-0 bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition zoom-in link-card">
       <div class="bg-green-100 p-3 rounded-full mb-4 flex items-center justify-center">
         {{ $page := .Site.GetPage "pendaftaran-online" }}
         {{ $recentImage := $page.RegularPages | first 1 }}
         {{ range $recentImage }}
-        <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="h-20 w-20 object-contain">
+        <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="h-16 w-16 object-contain">
         {{ end }}
       </div>
-      <div class="flex-grow flex flex-col justify-between">
-        <h3 class="text-lg font-semibold text-gray-800">Pendaftaran Online</h3>
-        <a href="https://itrsudsoedarso.kalbarprov.go.id/registrasionline/Login" class="mt-4 px-5 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition">
+      <div class="flex flex-col justify-between items-center flex-grow">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4 title">Pendaftaran Online</h3>
+        <a href="https://itrsudsoedarso.kalbarprov.go.id/registrasionline/Login" class="w-full px-5 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition">
           Lihat
         </a>
       </div>
     </div>
 
-    <div class="w-80 flex-shrink-0 bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition h-full">
+    <div class="w-56 flex-shrink-0 bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition zoom-in link-card">
       <div class="bg-green-100 p-3 rounded-full mb-4 flex items-center justify-center">
         {{ $page := .Site.GetPage "jadwal-operasi" }}
         {{ $recentImage := $page.RegularPages | first 1 }}
         {{ range $recentImage }}
-        <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="h-20 w-20 object-contain">
+        <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="h-16 w-16 object-contain">
         {{ end }}
       </div>
-      <div class="flex-grow flex flex-col justify-between">
-        <h3 class="text-lg font-semibold text-gray-800">Jadwal Operasi RSUD Soedarso</h3>
-        <a href="https://itrsudsoedarso.kalbarprov.go.id/jadwaloperasi/Display/index/" class="mt-4 px-5 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition">
+      <div class="flex flex-col justify-between items-center flex-grow">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4 title">Jadwal Operasi RSUD Soedarso</h3>
+        <a href="https://itrsudsoedarso.kalbarprov.go.id/jadwaloperasi/Display/index/" class="w-full px-5 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition">
           Lihat
         </a>
       </div>
     </div>
     
-    <!-- Lapor SP4N -->
-    <div
-      class="bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition h-full">
+    <div class="w-56 flex-shrink-0 bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition zoom-in link-card">
       <div class="bg-green-100 p-3 rounded-full mb-4 flex items-center justify-center">
-        <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="h-20 w-20 object-contain">
+        <img src="/images/placeholder/lapor.png" alt="Lapor SP4N" class="h-16 w-16 object-contain"> 
       </div>
-      <div class="flex-grow flex flex-col justify-between">
-        <h3 class="text-lg font-semibold text-gray-800">Lapor SP4N</h3>
-        <a href="https://www.lapor.go.id/"
-          class="mt-4 px-5 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition">
+      <div class="flex flex-col justify-between items-center flex-grow">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4 title">Lapor SP4N</h3>
+        <a href="https://www.lapor.go.id/" class="w-full px-5 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition">
           Lihat
         </a>
       </div>
     </div>
 
-    <!-- PPID -->
-    <div
-      class="bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition h-full">
+    <div class="w-56 flex-shrink-0 bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition zoom-in link-card">
       <div class="bg-green-100 p-3 rounded-full mb-4 flex items-center justify-center">
-        <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="h-20 w-20 object-contain">
+        <img src="/images/placeholder/ppid.png" alt="PPID" class="h-16 w-16 object-contain">
       </div>
-      <div class="flex-grow flex flex-col justify-between">
-        <h3 class="text-lg font-semibold text-gray-800">PPID</h3>
-        <a href="https://ppid.rsds.my.id/"
-          class="mt-4 px-5 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition">
+      <div class="flex flex-col justify-between items-center flex-grow">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4 title">PPID</h3>
+        <a href="https://ppid.rsds.my.id/" class="w-full px-5 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition">
           Lihat
         </a>
       </div>
     </div>
 
-    <!-- SIKEDIP -->
-    <div
-      class="bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition h-full">
+    <div class="w-56 flex-shrink-0 bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition zoom-in link-card">
       <div class="bg-green-100 p-3 rounded-full mb-4 flex items-center justify-center">
-        <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="h-20 w-20 object-contain">
+        <img src="/images/placeholder/sikedip.png" alt="SIKEDIP" class="h-16 w-16 object-contain">
       </div>
-      <div class="flex-grow flex flex-col justify-between">
-        <h3 class="text-lg font-semibold text-gray-800">SIKEDIP</h3>
-        <a href="https://sikedip.kalbarprov.go.id/home"
-          class="mt-4 px-5 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition">
+      <div class="flex flex-col justify-between items-center flex-grow">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4 title">SIKEDIP</h3>
+        <a href="https://sikedip.kalbarprov.go.id/home" class="w-full px-5 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition">
           Lihat
         </a>
       </div>
     </div>
 
-    <!-- Whistle Blowing -->
-    <div
-      class="bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition h-full">
+    <div class="w-56 flex-shrink-0 bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition zoom-in link-card">
       <div class="bg-green-100 p-3 rounded-full mb-4 flex items-center justify-center">
-        <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="h-20 w-20 object-contain">
+        <img src="/images/placeholder/whistle.png" alt="Whistle Blowing" class="h-16 w-16 object-contain">
       </div>
-      <div class="flex-grow flex flex-col justify-between">
-        <h3 class="text-lg font-semibold text-gray-800">Whistle Blowing</h3>
-        <a href="https://ppid.rsds.my.id/p/white-blowing.html?m=0"
-          class="mt-4 px-5 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition">
+      <div class="flex flex-col justify-between items-center flex-grow">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4 title">Whistle Blowing</h3>
+        <a href="https://ppid.rsds.my.id/p/white-blowing.html?m=0" class="w-full px-5 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition">
           Lihat
         </a>
       </div>
     </div>
 
-    <!-- SIPP MENPAN -->
-    <div
-      class="bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition h-full">
+    <div class="w-56 flex-shrink-0 bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition zoom-in link-card">
       <div class="bg-green-100 p-3 rounded-full mb-4 flex items-center justify-center">
-        <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="h-20 w-20 object-contain">
+        <img src="/images/placeholder/sipp.png" alt="SIPP MENPAN" class="h-16 w-16 object-contain">
       </div>
-      <div class="flex-grow flex flex-col justify-between">
-        <h3 class="text-lg font-semibold text-gray-800">SIPP MENPAN</h3>
-        <a href="https://sippn.menpan.go.id/"
-          class="mt-4 px-5 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition">
+      <div class="flex flex-col justify-between items-center flex-grow">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4 title">SIPP MENPAN</h3>
+        <a href="https://sippn.menpan.go.id/" class="w-full px-5 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition">
           Lihat
         </a>
       </div>
     </div>
 
-    <!-- LHKPN 2023 -->
-    <div
-      class="bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition h-full">
+    <div class="w-56 flex-shrink-0 bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition zoom-in link-card">
       <div class="bg-green-100 p-3 rounded-full mb-4 flex items-center justify-center">
-        <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="h-20 w-20 object-contain">
+        <img src="/images/placeholder/lhkpn.png" alt="LHKPN 2023" class="h-16 w-16 object-contain">
       </div>
-      <div class="flex-grow flex flex-col justify-between">
-        <h3 class="text-lg font-semibold text-gray-800">LHKPN 2023</h3>
-        <a href="https://drive.google.com/drive/folders/1t8X9OqgVLkSMDTz8iHVZpxb_HBAZNUqE"
-          class="mt-4 px-5 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition">
+      <div class="flex flex-col justify-between items-center flex-grow">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4 title">LHKPN 2023</h3>
+        <a href="https://drive.google.com/drive/folders/1t8X9OqgVLkSMDTz8iHVZpxb_HBAZNUqE" class="w-full px-5 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition">
           Lihat
         </a>
       </div>
     </div>
 
-    <!-- BANG TESI SILAT -->
-    <div
-      class="bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition h-full">
+    <div class="w-56 flex-shrink-0 bg-white shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition zoom-in link-card">
       <div class="bg-green-100 p-3 rounded-full mb-4 flex items-center justify-center">
-        <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="h-20 w-20 object-contain">
+        <img src="/images/placeholder/bang-tesi.png" alt="BANG TESI SILAT" class="h-16 w-16 object-contain">
       </div>
-      <div class="flex-grow flex flex-col justify-between">
-        <h3 class="text-lg font-semibold text-gray-800">BANG TESI SILAT</h3>
-        <a href="https://rsuddrsoedarso.kalbarprov.go.id/bang-tesi-silat/bang-tesi-silat/"
-          class="mt-4 px-5 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition">
+      <div class="flex flex-col justify-between items-center flex-grow">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4 title">BANG TESI SILAT</h3>
+        <a href="https://rsuddrsoedarso.kalbarprov.go.id/bang-tesi-silat/bang-tesi-silat/" class="w-full px-5 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 transition">
           Lihat
         </a>
       </div>
@@ -377,7 +356,7 @@ document.addEventListener('DOMContentLoaded', () => {
   </div>
 
   <!-- Tombol Next -->
-  <button onclick="scrollLink(1)"
+  <button onclick="scrollLink(1)" 
     class="absolute right-4 top-1/4 -translate-y-1/2 
           bg-green-500 bg-opacity-60 text-white 
           w-16 h-16 flex items-center justify-center 
