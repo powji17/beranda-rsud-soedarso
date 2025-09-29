@@ -1,4 +1,4 @@
-<header class='flex flex-wrap justify-between items-center mx-auto sticky top-0 z-50 w-full {{ default "bg-defaultColor" .Site.Params.ascentColor }} dark:bg-gray-900 transition duration-300'>
+<header class='opacity-95 flex flex-wrap justify-between items-center mx-auto sticky top-0 z-50 w-full {{ default "bg-defaultColor" .Site.Params.ascentColor }} dark:bg-gray-900 transition duration-300'>
   <style>
     ul.mobile-menu li a {
       font-size: 0.9rem;
@@ -44,9 +44,9 @@
   <div class="flex flex-row justify-between w-full">
     <a href='{{ absURL "/" }}' class="flex items-center flex-initial text-2xl font-extrabold capitalize break-words text-pretty">
       {{ if .Site.Params.logo }}
-      <img src='{{ absURL "/" }}kalbar-logo.png' alt="{{ .Site.Title }}" class="mx-5 my-2" style="width: 48px;" />
+      <img src='{{ absURL "/" }}kalbar-logo.png' alt="{{ .Site.Title }}" class="mx-5 my-2" style="width: 36px;" />
       {{ else }}
-      <img src='{{ absURL "/" }}kalbar-logo.png' alt="{{ .Site.Title }}" class="mx-5 my-0" style="width: 48px;" />
+      <img src='{{ absURL "/" }}kalbar-logo.png' alt="{{ .Site.Title }}" class="mx-5 my-0" style="width: 36px;" />
       {{ end }}
       <span class="mr-12 font-bold text-white break-words hover:text-green-900 dark:hover:text-yellow-400 text-pretty " style="font-size: 20px;">{{ .Site.Title }}</span>
     </a>
@@ -62,29 +62,34 @@
     {{ default "bg-defaultColor" $accent }} dark:bg-gray-900 transition duration-300
      mr-8 my-auto' >
       <li class="my-4"><a href='{{ absURL "/" }}'>Beranda</a></li>
+      {{ $menusToHide := slice "Eksternal Link" }}
+
       {{ range .Site.Menus.main }}
-        {{ $menuURL := .URL }}
-        {{ $menuName := .Name }}
-        {{ $menuHasChildren := .HasChildren }}
-        {{ if $menuHasChildren }}
-        <li class="relative px-4 my-2 whitespace-nowrap cursor-pointer md:px-1">
-          <span class="flex items-center gap-2 language-switcher">
-            <a>{{ $menuName }}</a>
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-              <path d="M18 15l-6 -6l-6 6h12" transform="rotate(180 12 12)"></path>
-            </svg>
-          </span>
-          <div class='language-dropdown w-screen md:w-52 absolute top-3/4 mt-2 flex-col gap-4 md:gap-2 {{ default "bg-defaultColor" $accent }} dark:bg-gray-900 z-10 hidden' style="border-radius: 8px; border-color: green; border-style: solid; border-width:1px">
-            {{ range .Children }}
-              <a class="px-5 py-4 md:py-2" href="{{ .URL }}">{{ .Name }}</a>
-            {{ end }}
-          </div>
-        </li>
-        {{ else }}
-          <li class="px-4 my-4 md:px-1 whitespace-nowrap"><a href="{{ $menuURL }}">{{ $menuName }}</a></li>
+        {{ if not (in $menusToHide .Name) }}
+          {{ $menuURL := .URL }}
+          {{ $menuName := .Name }}
+          {{ $menuHasChildren := .HasChildren }}
+          {{ if $menuHasChildren }}
+          <li class="relative px-4 my-2 whitespace-nowrap cursor-pointer md:px-1">
+            <span class="flex items-center gap-2 language-switcher">
+              <a>{{ $menuName }}</a>
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M18 15l-6 -6l-6 6h12" transform="rotate(180 12 12)"></path>
+              </svg>
+            </span>
+            <div class='language-dropdown w-screen md:w-52 absolute top-3/4 mt-2 flex-col gap-4 md:gap-2 {{ default "bg-defaultColor" $accent }} dark:bg-gray-900 z-10 hidden' style="border-radius: 8px; border-color: green; border-style: solid; border-width:1px">
+              {{ range .Children }}
+                <a class="px-5 py-4 md:py-2" href="{{ .URL }}">{{ .Name }}</a>
+              {{ end }}
+            </div>
+          </li>
+          {{ else }}
+            <li class="px-4 my-4 md:px-1 whitespace-nowrap"><a href="{{ $menuURL }}">{{ $menuName }}</a></li>
+          {{ end }}
         {{ end }}
       {{ end }}
+
         {{ if hugo.IsMultilingual }}
         {{ if ge (len .Site.Languages) 3 }}
           <li class="relative my-2 cursor-pointer">
@@ -129,6 +134,7 @@
           </li>
         {{ end }}
       {{ end }}
+
       {{ if .Site.Params.darkModeToggle }}
       <li class="grid place-items-center">
         <span class="inline-block cursor-pointer toggle-dark-mode">
