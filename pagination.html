@@ -1,0 +1,39 @@
+{{ $paginator := .Paginator }}
+
+{{ if gt $paginator.TotalPages 1 }}
+<nav class="flex items-center justify-center space-x-2 mt-8 mb-16" aria-label="Pagination">
+
+    {{ if $paginator.HasPrev }}
+        <a href="{{ $paginator.First.URL }}" class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50">
+            &laquo;&laquo; <span class="sr-only">Pertama</span>
+        </a>
+        <a href="{{ $paginator.Prev.URL }}" class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50">
+            &laquo; <span class="sr-only">Sebelumnya</span>
+        </a>
+    {{ end }}
+
+    {{ range $paginator.Pagers }}
+        {{ if eq .PageNumber $paginator.PageNumber }}
+            {{/* Halaman Aktif */}}
+            <span aria-current="page" class="relative z-10 inline-flex items-center rounded-md border border-green-500 bg-green-500 px-4 py-2 text-sm font-semibold text-white">
+                {{ .PageNumber }}
+            </span>
+        {{ else }}
+            {{/* Halaman Lain */}}
+            <a href="{{ .URL }}" class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50">
+                {{ .PageNumber }}
+            </a>
+        {{ end }}
+    {{ end }}
+
+    {{ if $paginator.HasNext }}
+        <a href="{{ $paginator.Next.URL }}" class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50">
+            <span class="sr-only">Selanjutnya</span> &raquo;
+        </a>
+        <a href="{{ $paginator.Last.URL }}" class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50">
+            <span class="sr-only">Terakhir</span> &raquo;&raquo;
+        </a>
+    {{ end }}
+
+</nav>
+{{ end }}
