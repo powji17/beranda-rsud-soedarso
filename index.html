@@ -152,18 +152,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
 <!-- Pengumuman - Infografis -->
 <div class="max-w-6xl mx-auto px-4 py-8">
-
   <!-- Baris: Pengumuman & Infografis -->
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+
     <!-- Pengumuman -->
     <div class="shadow-md rounded-lg bg-white p-6 text-center">
       <h2 class="text-3xl font-extrabold text-green-700 uppercase tracking-wide">
         Pengumuman
       </h2>
       <div class="w-12 h-1 bg-yellow-400 mt-1 mb-4 mx-auto rounded"></div>  
+
+      {{ $files := readDir "static/pengumuman" }}
+      {{ if gt (len $files) 0 }}
       <div class="swiper mySwiper relative group">
         <div class="swiper-wrapper">
-          {{ $files := readDir "static/pengumuman" }}
           {{ range $files }}
           <div class="swiper-slide">
             <img src="/pengumuman/{{ .Name }}" alt="{{ .Name }}" class="w-full h-80 object-contain rounded-lg mx-auto">
@@ -175,6 +177,15 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="swiper-button-next opacity-0 group-hover:opacity-100 transition duration-300"></div>
         <div class="swiper-button-prev opacity-0 group-hover:opacity-100 transition duration-300"></div>
       </div>
+      {{ else }}
+      <!-- Tampilkan ikon kamera jika folder kosong -->
+      <div class="flex justify-center items-center h-80 text-gray-400">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-20 h-20">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5h2.25l1.5-2.25h10.5l1.5 2.25H21A1.5 1.5 0 0122.5 9v9A1.5 1.5 0 0121 19.5H3A1.5 1.5 0 011.5 18V9A1.5 1.5 0 013 7.5z" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 10.5a3 3 0 110 6 3 3 0 010-6z" />
+        </svg>
+      </div>
+      {{ end }}
     </div>
 
     <!-- Infografis -->
@@ -183,12 +194,14 @@ document.addEventListener('DOMContentLoaded', () => {
         Infografis
       </h2>
       <div class="w-12 h-1 bg-yellow-400 mt-1 mb-4 mx-auto rounded"></div>  
+
+      {{ $files := readDir "static/infografis" }}
+      {{ if gt (len $files) 0 }}
       <div class="swiper mySwiper relative group">
         <div class="swiper-wrapper">
-          {{ $files := readDir "static/laporan-ikm/thumbnails" }}
           {{ range $files }}
           <div class="swiper-slide">
-            <img src="/laporan-ikm/thumbnails/{{ .Name }}" alt="{{ .Name }}" class="w-full h-80 object-contain rounded-lg mx-auto">
+            <img src="/infografis/{{ .Name }}" alt="{{ .Name }}" class="w-full h-80 object-contain rounded-lg mx-auto">
           </div>
           {{ end }}
         </div>
@@ -197,9 +210,18 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="swiper-button-next opacity-0 group-hover:opacity-100 transition duration-300"></div>
         <div class="swiper-button-prev opacity-0 group-hover:opacity-100 transition duration-300"></div>
       </div>
+      {{ else }}
+      <!-- Tampilkan ikon kamera jika folder kosong -->
+      <div class="flex justify-center items-center h-80 text-gray-400">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-20 h-20">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5h2.25l1.5-2.25h10.5l1.5 2.25H21A1.5 1.5 0 0122.5 9v9A1.5 1.5 0 0121 19.5H3A1.5 1.5 0 011.5 18V9A1.5 1.5 0 013 7.5z" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 10.5a3 3 0 110 6 3 3 0 010-6z" />
+        </svg>
+      </div>
+      {{ end }}
     </div>
-  </div>
 
+  </div>
 </div>
 
 <!-- Link Terkait -->
@@ -376,77 +398,108 @@ document.addEventListener('DOMContentLoaded', () => {
   </div>
 
   <div class="mt-6">
-      {{ $news := .Site.GetPage "berita" }}
-      {{ if $news }}
-      <!-- Berita Utama -->
-      {{ with index (where $news.Pages.ByDate.Reverse "Type" "berita") 0 }}
-      <a href="{{ .Permalink }}"
-      class="block bg-white shadow-md rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-t-4 hover:border-green-500">
-      <div class="relative">
-          <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="w-full h-56 object-cover">
-      </div>
-      <div class="p-4">
-          <div class="flex items-center justify-between text-sm text-gray-500 mb-2">
-          <span class="inline-block px-2 py-1 bg-green-100 text-green-600 rounded-full text-xs font-medium">
-              {{ .Params.category | default "Berita Kalbar" }}
-          </span>
-          <span class="flex items-center gap-1 text-gray-500">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              {{ .Date.Format "2 January 2006" }}
-          </span>
-          </div>
-          <h3 class="text-base font-semibold text-gray-900 leading-snug">
-          {{ .Title }}
-          </h3>
-          <span class="mt-2 inline-block text-green-600 hover:underline text-sm font-medium">
-          Baca Selengkapnya
-          </span>
-      </div>
-      </a>
-      {{ end }}
+    {{ $news := .Site.GetPage "berita" }}
+    {{ if $news }}
+      {{ $pages := where $news.Pages.ByDate.Reverse "Type" "berita" }}
+      {{ if gt (len $pages) 0 }}
 
-      <!-- Daftar Berita Lain -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-      {{ range first 4 (after 1 (where $news.Pages.ByDate.Reverse "Type" "berita")) }}
-      <a href="{{ .Permalink }}"
+        <!-- Berita Utama -->
+        {{ with index $pages 0 }}
+        <a href="{{ .Permalink }}"
           class="block bg-white shadow-md rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-t-4 hover:border-green-500">
           <div class="relative">
-          <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="w-full h-40 object-cover">
+            <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="w-full h-56 object-cover">
           </div>
-          <div class="p-3">
-          <div class="flex items-center justify-between text-xs text-gray-500 mb-1">
-              <span class="inline-block px-2 py-1 bg-green-100 text-green-600 rounded-full text-[10px] font-medium">
-              {{ .Params.category | default "Berita Kalbar" }}
+          <div class="p-4">
+            <div class="flex items-center justify-between text-sm text-gray-500 mb-2">
+              <span class="inline-block px-2 py-1 bg-green-100 text-green-600 rounded-full text-xs font-medium">
+                {{ .Params.category | default "Berita Kalbar" }}
               </span>
               <span class="flex items-center gap-1 text-gray-500">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              {{ .Date.Format "2 January 2006" }}
+                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                {{ .Date.Format "2 January 2006" }}
               </span>
-          </div>
-          <h3 class="text-sm font-semibold text-gray-900 leading-snug">
+            </div>
+            <h3 class="text-base font-semibold text-gray-900 leading-snug">
               {{ .Title }}
-          </h3>
-          <span class="mt-1 inline-block text-green-600 hover:underline text-xs font-medium">
+            </h3>
+            <span class="mt-2 inline-block text-green-600 hover:underline text-sm font-medium">
               Baca Selengkapnya
-          </span>
+            </span>
           </div>
-      </a>
+        </a>
+        {{ end }}
+
+        <!-- Daftar Berita Lain -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+          {{ range first 4 (after 1 $pages) }}
+          <a href="{{ .Permalink }}"
+            class="block bg-white shadow-md rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-t-4 hover:border-green-500">
+            <div class="relative">
+              <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="w-full h-40 object-cover">
+            </div>
+            <div class="p-3">
+              <div class="flex items-center justify-between text-xs text-gray-500 mb-1">
+                <span class="inline-block px-2 py-1 bg-green-100 text-green-600 rounded-full text-[10px] font-medium">
+                  {{ .Params.category | default "Berita Kalbar" }}
+                </span>
+                <span class="flex items-center gap-1 text-gray-500">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  {{ .Date.Format "2 January 2006" }}
+                </span>
+              </div>
+              <h3 class="text-sm font-semibold text-gray-900 leading-snug">
+                {{ .Title }}
+              </h3>
+              <span class="mt-1 inline-block text-green-600 hover:underline text-xs font-medium">
+                Baca Selengkapnya
+              </span>
+            </div>
+          </a>
+          {{ end }}
+        </div>
+
+      {{ else }}
+        <!-- Jika tidak ada berita -->
+        <div class="w-full h-56 bg-gray-50 border-2 border-dashed border-gray-300 
+                    rounded-lg flex items-center justify-center flex-shrink-0">
+          <!-- Ikon berita -->
+          <svg xmlns="http://www.w3.org/2000/svg" 
+                class="w-14 h-14 text-gray-400"
+                fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M4 19.5h16M4 4.5h16M4 9h16M4 14h10" />
+          </svg>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+          {{ range seq 1 4 }}
+          <div class="w-full h-40 bg-gray-50 border-2 border-dashed border-gray-300 
+                      rounded-lg flex items-center justify-center flex-shrink-0">
+            <!-- Ikon berita -->
+            <svg xmlns="http://www.w3.org/2000/svg" 
+                class="w-14 h-14 text-gray-400"
+                fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M4 19.5h16M4 4.5h16M4 9h16M4 14h10" />
+            </svg>
+          </div>
+          {{ end }}
+        </div>
       {{ end }}
-      </div>
-      {{ end }}
+    {{ end }}
   </div>
 
   <div class="mt-6 text-center">
-      <a href="{{ .Site.BaseURL }}berita"
+    <a href="{{ .Site.BaseURL }}berita"
       class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-green-500 hover:bg-green-600 transition-colors duration-300">
       Lihat Semua Berita &rarr;
-      </a>
+    </a>
   </div>
 
   <!-- Agenda -->
@@ -454,61 +507,84 @@ document.addEventListener('DOMContentLoaded', () => {
     <h2 class="text-3xl font-extrabold text-green-700 uppercase tracking-wide">Agenda</h2>
     <div class="w-12 h-1 bg-yellow-400 mt-1 mx-auto rounded"></div>
   </div>
-  <!-- Agenda Card -->
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-    {{ range first 4 (where .Site.RegularPages "Section" "agenda").ByDate }}
-    <div class="block w-full p-4 mb-4 bg-white shadow-md rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-t-4 hover:border-green-500">
-      <!-- Judul -->
-      <h3 class="font-semibold text-gray-900 text-xl mb-3 line-clamp-2">
-        {{ .Title }}
-      </h3>
 
-      <!-- Tanggal -->
-      <div class="flex items-center text-sm text-gray-600 mb-1">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2 text-yellow-400" fill="none" viewBox="0 0 24 24"
-          stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10m-12 8h14a2 2 0 002-2V7a2 2 0 
-          00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-        </svg>
-        <span>{{ .Date.Format "2 January 2006" }}</span>
-      </div>
+  {{ $agenda := where .Site.RegularPages "Section" "agenda" }}
+  {{ if gt (len $agenda) 0 }}
+    <!-- Agenda Card -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+      {{ range first 4 $agenda.ByDate }}
+      <div
+        class="block w-full p-4 mb-4 bg-white shadow-md rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-t-4 hover:border-green-500">
+        <!-- Judul -->
+        <h3 class="font-semibold text-gray-900 text-xl mb-3 line-clamp-2">
+          {{ .Title }}
+        </h3>
 
-      <!-- Waktu -->
-      <div class="flex items-center text-sm text-gray-600 mb-1">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2 text-green-500" fill="none" viewBox="0 0 24 24"
-          stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-        <span>{{ .Params.time }}</span>
-      </div>
+        <!-- Tanggal -->
+        <div class="flex items-center text-sm text-gray-600 mb-1">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2 text-yellow-400" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M8 7V3m8 4V3m-9 8h10m-12 8h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+          <span>{{ .Date.Format "2 January 2006" }}</span>
+        </div>
 
-      <!-- Lokasi -->
-      <div class="flex items-center text-sm text-gray-600 mb-1">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2 text-yellow-400" fill="none" viewBox="0 0 24 24"
-          stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1 1 0 01-1.414 0L6.343 
-          16.657a8 8 0 1111.314 0z" />
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-        </svg>
-        <span>{{ .Params.location }}</span>
-      </div>
+        <!-- Waktu -->
+        <div class="flex items-center text-sm text-gray-600 mb-1">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2 text-green-500" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span>{{ .Params.time }}</span>
+        </div>
 
-      <!-- Penyelenggara -->
-      <div class="flex items-center text-sm text-gray-600">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2 text-green-500" fill="none" viewBox="0 0 24 24"
-          stroke="currentColor">
-          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-          <circle cx="9" cy="7" r="4"></circle>
-          <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-        </svg>
-        <span>{{ .Params.organizer }}</span>
+        <!-- Lokasi -->
+        <div class="flex items-center text-sm text-gray-600 mb-1">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2 text-yellow-400" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M17.657 16.657L13.414 20.9a1 1 0 01-1.414 0L6.343 16.657a8 8 0 1111.314 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          <span>{{ .Params.location }}</span>
+        </div>
+
+        <!-- Penyelenggara -->
+        <div class="flex items-center text-sm text-gray-600">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2 text-green-500" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+          <span>{{ .Params.organizer }}</span>
+        </div>
       </div>
+      {{ end }}
     </div>
-    {{end}}
-  </div>
+  {{ else }}
+    <!-- Placeholder jika folder agenda kosong -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 mb-6">
+      {{ range seq 1 4 }}
+      <div
+        class="w-full h-40 bg-gray-50 border-2 border-dashed border-gray-300 
+              rounded-lg flex items-center justify-center flex-shrink-0">
+        <!-- Ikon kalender -->
+        <svg xmlns="http://www.w3.org/2000/svg" 
+            class="w-14 h-14 text-gray-400"
+            fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M8 7V3m8 4V3m-9 8h10m-12 8h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+      </div>
+      {{ end }}
+    </div>
+  {{ end }}
+
   <div class="mt-2 text-center">
     <a href="{{ .Site.BaseURL }}agenda"
       class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-green-500 hover:bg-green-600 transition-colors duration-300">
@@ -523,6 +599,7 @@ document.addEventListener('DOMContentLoaded', () => {
   <h2 class="text-3xl font-extrabold text-green-700 uppercase tracking-wide">Gallery</h2>
   <div class="w-12 h-1 bg-yellow-400 mt-1 mb-4 mx-auto rounded"></div>
 </div>
+
 <div class="relative group">
   <!-- Tombol Prev -->
   <button onclick="scrollGallery(-1)" 
@@ -537,10 +614,32 @@ document.addEventListener('DOMContentLoaded', () => {
   <!-- Kontainer scroll -->
   <div id="galleryScroll" class="flex gap-4 overflow-x-auto pb-4 scroll-smooth">
     {{ $files := readDir "static/gallery" }}
+    {{ $images := slice }}
     {{ range $files }}
       {{ if or (strings.HasSuffix .Name ".jpg") (strings.HasSuffix .Name ".jpeg") (strings.HasSuffix .Name ".png") }}
+        {{ $images = $images | append . }}
+      {{ end }}
+    {{ end }}
+
+    {{ if gt (len $images) 0 }}
+      <!-- Jika folder berisi gambar -->
+      {{ range $images }}
         <div class="w-64 h-40 bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden flex-shrink-0">
           <img src="/gallery/{{ .Name }}" alt="{{ .Name }}" class="w-full h-full object-cover">
+        </div>
+      {{ end }}
+    {{ else }}
+      <!-- Jika folder kosong, tampilkan 10 card bergambar ikon kamera -->
+      {{ range seq 1 10 }}
+        <div class="w-64 h-40 bg-gray-50 border-2 border-dashed border-gray-300 
+                    rounded-lg flex items-center justify-center flex-shrink-0">
+          <!-- Ikon kamera -->
+          <svg xmlns="http://www.w3.org/2000/svg" 
+               class="w-12 h-12 text-gray-400" 
+               fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" 
+              d="M3 7h3l2-2h8l2 2h3a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2zm9 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8z" />
+          </svg>
         </div>
       {{ end }}
     {{ end }}
@@ -559,9 +658,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 <!-- Buletin -->
 <div class="flex flex-col items-center mt-4">
-  <h2 class="text-3xl font-extrabold text-green-700 uppercase tracking-wide text-center mt-4">Buletin RSUD Dokter Soedarso</h2>
+  <h2 class="text-3xl font-extrabold text-green-700 uppercase tracking-wide text-center mt-4">
+    Buletin RSUD Dokter Soedarso
+  </h2>
   <div class="w-12 h-1 bg-yellow-400 mt-1 mb-4 mx-auto rounded"></div>
 </div>
+
 <div class="relative group">
   <!-- Tombol Prev -->
   <button onclick="scrollBuletin(-1)"
@@ -575,14 +677,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
   <!-- Kontainer scroll -->
   <div id="buletinScroll" class="flex gap-4 overflow-x-auto pb-4 scroll-smooth mb-6">
-    {{ range first 50 (where .Site.RegularPages.ByDate.Reverse "Section" "buletin") }}
-    <a href="{{ .RelPermalink }}" class="w-64 h-41 bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden flex-shrink-0">
-      <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="w-full h-32 object-cover">
-      <div class="p-3">
-        <h3 class="font-semibold text-sm text-gray-800 line-clamp-2">{{ .Title }}</h3>
-      </div>
-    </a>
-  {{ end }}
+    {{ $buletin := where .Site.RegularPages.ByDate.Reverse "Section" "buletin" }}
+
+    {{ if gt (len $buletin) 0 }}
+      <!-- Jika ada konten buletin -->
+      {{ range $buletin }}
+        <a href="{{ .RelPermalink }}" 
+           class="w-64 h-41 bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden flex-shrink-0">
+          <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="w-full h-32 object-cover">
+          <div class="p-3">
+            <h3 class="font-semibold text-sm text-gray-800 line-clamp-2">{{ .Title }}</h3>
+          </div>
+        </a>
+      {{ end }}
+    {{ else }}
+      <!-- Jika tidak ada buletin, tampilkan 10 card placeholder dengan ikon koran -->
+      {{ range seq 1 10 }}
+        <div class="w-64 h-40 bg-gray-50 border-2 border-dashed border-gray-300 
+                    rounded-lg flex items-center justify-center flex-shrink-0">
+          <!-- Ikon koran -->
+          <svg xmlns="http://www.w3.org/2000/svg" 
+               class="w-12 h-12 text-gray-400 mb-1"
+               fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" 
+              d="M4 19.5h16M4 4.5h16M4 9h16M4 14h10" />
+          </svg>
+        </div>
+      {{ end }}
+    {{ end }}
   </div>
 
   <!-- Tombol Next -->
