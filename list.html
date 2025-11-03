@@ -1,0 +1,61 @@
+{{ define "main" }}
+
+<h1 class="container text-center mb-4 mt-2 pt-6 px-6 mx-auto text-3xl font-bold dark:text-black">{{ .Title }}</h1>
+{{ if eq .Type "gallery" }}
+  
+  {{ $imageFolder := "static/files/gallery" }}
+  {{ $files := readDir $imageFolder }}
+  {{ $allowedExt := (slice ".jpg" ".jpeg" ".png" ".gif" ".webp") }}
+
+
+  <div class="container p-6 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 lg:gap-8">
+
+    {{ range $files }}
+      
+      {{ if in $allowedExt (lower (path.Ext .Name)) }}
+        
+        {{ $imagePath := print "/files/gallery/" .Name }}
+
+        <div class="rounded-lg zoom-in">
+          <a href="{{ $imagePath }}" target="_blank">
+            
+            <img src="{{ $imagePath }}" alt="{{ .Name }}" class="rounded-lg w-full object-cover" style="height: 260px; object-fit: contain;">
+            
+            
+          </a>
+        </div>
+
+      {{ end }}
+    {{ end }}
+
+  </div>
+
+{{ else }}
+  
+  {{ $paginator := .Paginate .Pages.ByDate.Reverse 12 }}
+  <div class="container p-6 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 lg:gap-8">
+    {{ range $paginator.Pages }}
+      {{ if eq $.Type "article" }}
+        {{ partial "blog-card.html" . }}
+      {{ else if eq $.Type "kegiatan" }}
+        {{ partial "kegiatan.html" . }}
+      {{ else if eq $.Type "page" }}
+        {{ partial "blog-card-2.html" . }}
+      {{ else if eq $.Type "gallery" }}
+        {{ partial "gallery.html" . }} {{/* Baris ini aman, tidak akan terpakai lagi */}}
+      {{ else if eq $.Type "externalUrl" }}
+        {{ partial "externalUrl.html" . }}
+      {{ else if eq $.Type "agenda" }}
+        {{ partial "agenda-card.html" . }}
+         <!-- Tambahkan kondisi tipe konten lain jika diperlukan -->
+      {{ else }}
+        Tidak terdeteksi
+      {{ end }}
+    {{ end }}
+  </div>
+
+ 
+{{ end }}
+
+{{ end }}
+
