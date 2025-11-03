@@ -30,8 +30,13 @@
 
   </div>
 
-{{ else }}
+{{ else if eq .Type "agenda" }}
+  <!-- Tampilkan daftar agenda dari hugo.toml -->
+  <div class="container p-6 mx-auto">
+    {{ partial "agenda-card.html" . }}
+  </div>
   
+{{ else }}
   {{ $paginator := .Paginate .Pages.ByDate.Reverse 12 }}
   <div class="container p-6 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 lg:gap-8">
     {{ range $paginator.Pages }}
@@ -43,8 +48,6 @@
         {{ partial "blog-card-2.html" . }}
       {{ else if eq $.Type "externalUrl" }}
         {{ partial "externalUrl.html" . }}
-      {{ else if eq $.Type "agenda" }}
-        {{ partial "agenda-card.html" . }}
          <!-- Tambahkan kondisi tipe konten lain jika diperlukan -->
       {{ else }}
         Tidak terdeteksi
@@ -58,4 +61,3 @@
 {{ end }}
 
 {{ end }}
-
