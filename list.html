@@ -41,8 +41,6 @@
         {{ partial "kegiatan.html" . }}
       {{ else if eq $.Type "page" }}
         {{ partial "blog-card-2.html" . }}
-      {{ else if eq $.Type "gallery" }}
-        {{ partial "gallery.html" . }} {{/* Baris ini aman, tidak akan terpakai lagi */}}
       {{ else if eq $.Type "externalUrl" }}
         {{ partial "externalUrl.html" . }}
       {{ else if eq $.Type "agenda" }}
