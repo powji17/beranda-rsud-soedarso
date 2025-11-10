@@ -1,0 +1,665 @@
+{{ define "main" }}
+
+<style>
+  /* 💥 TAMBAHKAN FONT AWESOME UNTUK IKON */
+  @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
+
+  .marquee {
+    overflow: hidden;
+    white-space: nowrap;
+    box-sizing: border-box;
+  }
+  .marquee-text {
+    display: inline-block;
+    padding-left: 100%;
+    animation: marquee 20s linear infinite;
+  }
+
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+  }
+
+  .container {
+    white-space: nowrap;
+  }
+
+  .zoom-in {
+    transition: transform 0.3s ease;
+  }
+
+  /* Disesuaikan untuk efek zoom pada kartu Link Terkait */
+  .zoom-in:hover {
+    transform: scale(1.05);
+  }
+
+  #galleryScroll {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE dan Edge lama */
+  }
+  #galleryScroll::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+
+  #buletinScroll {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE dan Edge lama */
+  }
+  #buletinScroll::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+
+  #linkScroll {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE dan Edge lama */
+  }
+  #linkScroll::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+
+  /* --- CSS Kustom untuk Card Link Terkait Berwarna-warni --- */
+  
+  .link-card-color {
+    /* Kelas umum untuk kartu berwarna */
+    color: white; 
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-align: center;
+    border-radius: 0.75rem;
+    height: 12rem; /* Tinggi tetap agar seragam (h-48) */
+    width: 14rem; /* Lebar tetap (w-56) */
+  }
+
+  /* Warna Latar Belakang */
+  .color-blue { background-color: #30a434; }
+  .color-red { background-color: #448758; }
+  .color-yellow { background-color: #2ebc70; }
+  .color-green { background-color: #10B981; }
+  .color-purple { background-color: #03ed8c; }
+  .color-teal { background-color: #0D9488; }
+
+  /* Tombol Lihat */
+  .btn-lihat {
+    background-color: rgba(0, 0, 0, 0.2); /* Tombol transparan */
+    transition: background-color 0.3s;
+    font-weight: 600;
+  }
+  .btn-lihat:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  /* --- Akhir CSS Kustom --- */
+  
+
+  .block.w-full.p-4.mb-4.bg-white.shadow-md.rounded-lg.overflow-hidden.transition-all.duration-300.hover {
+    border-top-width: 4px;
+    border-color: #34D399;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    transform: translateY(-5px);
+  }
+
+  .block.bg-white.shadow-md.rounded-lg.overflow-hidden.transition-all.duration-300:hover {
+    border-top-width: 4px;
+    border-color: #34D399;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    transform: translateY(-5px);
+  }
+
+  .mySwiper,
+  .mySwiper .swiper-wrapper,
+  .mySwiper .swiper-slide {
+    height: 480px !important;
+  }
+  .mySwiper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover !important; /* gambar dicrop agar memenuhi container */
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll(".mySwiper").forEach(swiperContainer => {
+      new Swiper(swiperContainer, {
+        slidesPerView: 1,
+        loop: true,
+        autoplay: { 
+          delay: 3000,
+          disableOnInteraction: false
+        },
+        pagination: { 
+          el: swiperContainer.querySelector(".swiper-pagination"), 
+          clickable: true,
+          dynamicBullets: true,
+          dynamicMainBullets: 3
+        }
+      });
+    });
+
+    // Skrip Tab dihapus / tidak aktif lagi di sini
+
+  });
+
+
+  function scrollGallery(direction) {
+    const container = document.getElementById("galleryScroll");
+    if (!container) return;
+    const scrollAmount = 220;
+    container.scrollBy({
+      left: direction * scrollAmount,
+      behavior: "smooth"
+    });
+  }
+
+  function scrollBuletin(direction) {
+    const container = document.getElementById("buletinScroll");
+    if (!container) return;
+    const scrollAmount = 250;
+    container.scrollBy({
+      left: direction * scrollAmount,
+      behavior: "smooth"
+    });
+  }
+
+  // >>> FUNGSI SCROLLLINK DIKEMBALIKAN KE VERSI SCROLL
+  function scrollLink(direction) {
+    const container = document.getElementById("linkScroll");
+    if (!container) return;
+    // Lebar Card 14rem (224px) + Gap 1.5rem (24px)
+    const scrollAmount = (224 + 24) * 2 * direction; 
+    container.scrollBy({
+      left: scrollAmount,
+      behavior: "smooth"
+    });
+  }
+
+  // Auto scroll Gallery
+  setInterval(() => {
+    const gallery = document.getElementById("galleryScroll");
+    if (gallery) {
+      const scrollAmount = 220; // ukuran 1 card
+      gallery.scrollBy({ left: scrollAmount, behavior: "smooth" });
+
+      // reset ke awal jika sudah di akhir
+      if (gallery.scrollLeft + gallery.clientWidth >= gallery.scrollWidth) {
+        gallery.scrollTo({ left: 0, behavior: "smooth" });
+      }
+    }
+  }, 3000); // tiap 3 detik
+
+  // Auto scroll Buletin
+  setInterval(() => {
+    const buletin = document.getElementById("buletinScroll");
+    if (buletin) {
+      const scrollAmount = 220;
+      buletin.scrollBy({ left: scrollAmount, behavior: "smooth" });
+
+      if (buletin.scrollLeft + buletin.clientWidth >= buletin.scrollWidth) {
+        buletin.scrollTo({ left: 0, behavior: "smooth" });
+      }
+    }
+  }, 3000);
+
+  // >>> AUTO SCROLL LINK TERKAIT DIKEMBALIKAN
+  setInterval(() => {
+    const link = document.getElementById("linkScroll");
+    if (link) {
+      const scrollAmount = 220; // ukuran 1 card
+      link.scrollBy({ left: scrollAmount, behavior: "smooth" });
+
+      // reset ke awal jika sudah di akhir
+      if (link.scrollLeft + link.clientWidth >= link.scrollWidth) {
+        link.scrollTo({ left: 0, behavior: "smooth" });
+      }
+    }
+  }, 3000);
+</script>
+
+<section class="relative w-full" style="height: 90vh;">
+  <iframe
+    class="absolute top-0 left-0 w-full h-full"
+    src="https://www.youtube.com/embed/swSDSPDmENc&t=58s?autoplay=1&mute=1&controls=0&loop=1&playlist=swSDSPDmENc&t=58s&modestbranding=1&showinfo=0"
+    title="Video Profil RSUD Soedarso"
+    frameborder="0"
+    allow="autoplay; fullscreen"
+    allowfullscreen>
+  </iframe>
+</section>
+
+<div class="max-w-6xl px-4 py-12 mx-auto">
+  <div class="grid grid-cols-1 gap-10 mb-2 md:grid-cols-2">
+
+    <section class="text-center">
+      <h2 class="text-3xl font-extrabold tracking-wide text-green-700 uppercase">
+        Pengumuman
+      </h2>
+      <div class="w-12 h-1 mx-auto mt-1 mb-4 bg-yellow-400 rounded"></div>
+
+      <div class="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition duration-300">
+        {{ $directory := "static/files/pengumuman" }}
+        {{ if (fileExists $directory) }}
+        {{ $files := readDir $directory }}
+        {{ if gt (len $files) 0 }}
+        <div class="relative swiper mySwiper group">
+          <div class="swiper-wrapper">
+            {{ range $files }}
+            <div class="swiper-slide">
+              <img src="/files/pengumuman/{{ .Name }}" alt="{{ .Name }}"
+              class="w-full h-full object-cover rounded-xl hover:scale-105 transition-transform duration-500">
+            </div>
+            {{ end }}
+          </div>
+          <div class="swiper-pagination mt-2 opacity-0 group-hover:opacity-100 transition duration-300"></div>
+        </div>
+        {{ else }}
+        <div class="flex items-center justify-center text-gray-400 h-80">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-20 h-20">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5h2.25l1.5-2.25h10.5l1.5 2.25H21A1.5 1.5 0 0122.5 9v9A1.5 1.5 0 0121 19.5H3A1.5 1.5 0 011.5 18V9A1.5 1.5 0 013 7.5z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 10.5a3 3 0 110 6 3 3 0 010-6z" />
+          </svg>
+        </div>
+        {{ end }}
+        {{else}}
+        <p class="mb-4 text-sm text-red-600">Folder "pengumuman" tidak ditemukan di direktori "/files". Silakan buat folder tersebut dan tambahkan gambar pengumuman.</p>
+        {{ end }}
+      </div>
+    </section>
+
+    <section class="text-center">
+      <h2 class="text-3xl font-extrabold tracking-wide text-green-700 uppercase">
+        Infografis
+      </h2>
+      <div class="w-12 h-1 mx-auto mt-1 mb-4 bg-yellow-400 rounded"></div>
+
+      <div class="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition duration-300">
+        {{ $directory := "static/files/infografis" }}
+        {{ if fileExists $directory }}
+        {{ $files := readDir $directory }}
+        {{ if gt (len $files) 0 }}
+        <div class="relative swiper mySwiper group">
+          <div class="swiper-wrapper">
+            {{ range $files }}
+            <div class="swiper-slide">
+              <img src="/files/infografis/{{ .Name }}" alt="{{ .Name }}"
+              class="w-full h-full object-cover rounded-xl hover:scale-105 transition-transform duration-500">
+            </div>
+            {{ end }}
+          </div>
+          <div class="swiper-pagination mt-2 opacity-0 group-hover:opacity-100 transition duration-300"></div>
+        </div>
+        {{ else }}
+        <div class="flex items-center justify-center text-gray-400 h-80">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-20 h-20">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5h2.25l1.5-2.25h10.5l1.5 2.25H21A1.5 1.5 0 0122.5 9v9A1.5 1.5 0 0121 19.5H3A1.5 1.5 0 011.5 18V9A1.5 1.5 0 013 7.5z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 10.5a3 3 0 110 6 3 3 0 010-6z" />
+          </svg>
+        </div>
+        {{ end }}
+        {{else}}
+        <p class="mb-4 text-sm text-red-600">Folder "infografis" tidak ditemukan di direktori "/files". Silakan buat folder tersebut dan tambahkan infografis.</p>
+        {{ end }}
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<div class="flex flex-col items-center mb-6">
+  <h2 class="text-3xl font-extrabold tracking-wide text-green-700 uppercase">LINK TERKAIT</h2>
+  <div class="w-12 h-1 mx-auto mt-1 bg-yellow-400 rounded"></div>
+</div>
+
+<div class="bg-gray-200 dark:bg-gray-800 transition duration-300 py-10">
+  <div class="relative max-w-full mx-auto px-4 group">
+    
+    <button onclick="scrollLink(-1)"
+      class="absolute z-10 flex items-center justify-center w-16 h-16 text-white transition -translate-y-1/2 bg-green-500 rounded-full shadow-lg opacity-0 left-4 top-28 bg-opacity-60 group-hover:opacity-100 duration-300">
+      <span class="text-4xl font-bold">‹</span>
+    </button>
+
+    <div id="linkScroll" class="flex gap-6 overflow-x-auto scroll-smooth pb-4">
+
+      {{ $allLinks := slice 
+          (dict "title" "SIRANAP" "url" "https://itrsudsoedarso.kalbarprov.go.id/siranaponline/" "bg" "color-blue" "icon" "shield-alt") 
+          (dict "title" "Pendaftaran Online" "url" "https://itrsudsoedarso.kalbarprov.go.id/registrasionline/Login" "bg" "color-red" "icon" "home") 
+          (dict "title" "Jadwal Operasi" "url" "https://itrsudsoedarso.kalbarprov.go.id/jadwaloperasi/Display/index/" "bg" "color-yellow" "icon" "calendar-alt") 
+      }}
+
+      {{ $externalColors := slice "color-green" "color-purple" "color-teal" }}
+      {{ $externalIcons := slice "clipboard-list" "users" "heart" }}
+      
+      {{ $colorIndex := 0 }}
+      {{ $iconIndex := 0 }}
+
+      {{/* Render 3 Link Utama Statis */}}
+      {{ range $allLinks }}
+          <div class="flex-shrink-0 link-card-color {{ .bg }} shadow-md zoom-in">
+              <a href="{{ .url }}" class="flex flex-col items-center justify-between h-full p-4">
+                  <div class="flex items-center justify-center flex-grow pt-4">
+                      <i class="fas fa-{{ .icon }} text-5xl opacity-80"></i>
+                  </div>
+                  <h3 class="mt-2 mb-3 text-lg font-semibold title">{{ .title }}</h3>
+                  
+              </a>
+          </div>
+      {{ end }}
+
+      {{/* Render Link Eksternal Dinamis */}}
+      {{ range sort (where .Site.RegularPages "Section" "eksternal-link") "Title" }}
+          {{ $currentBg := index $externalColors (mod $colorIndex (len $externalColors)) }}
+          {{ $currentIcon := index $externalIcons (mod $iconIndex (len $externalIcons)) }}
+
+          <div class="flex-shrink-0 link-card-color {{ $currentBg }} shadow-md zoom-in">
+              <a href="{{ .Params.eurl }}" class="flex flex-col items-center justify-between h-full p-4">
+                  <div class="flex items-center justify-center flex-grow pt-4">
+                      <i class="fas fa-{{ $currentIcon }} text-5xl opacity-80"></i>
+                  </div>
+                  <h3 class="mt-2 mb-3 text-lg font-semibold title">{{ .Title }}</h3>
+                  
+              </a>
+          </div>
+
+          {{ $colorIndex = add $colorIndex 1 }}
+          {{ $iconIndex = add $iconIndex 1 }}
+      {{ end }}
+
+    </div>
+
+        <!-- Tombol Next -->
+    <button onclick="scrollLink(1)"
+      class="absolute z-10 flex items-center justify-center w-16 h-16 text-white transition -translate-y-1/2 bg-green-500 rounded-full shadow-lg opacity-0 right-4 top-28 bg-opacity-60 group-hover:opacity-100 duration-300">
+      <span class="text-4xl font-bold">›</span>
+    </button> 
+  </div>
+</div>
+  </div>
+</div>
+<div class="max-w-6xl px-4 py-8 mx-auto">
+
+  <div class="flex flex-col items-center mt-2 mb-6">
+    <h2 class="text-3xl font-extrabold tracking-wide text-green-700 uppercase">Berita</h2>
+    <div class="w-12 h-1 mx-auto mt-1 bg-yellow-400 rounded"></div>
+  </div>
+
+  <div class="mt-6">
+    {{ $news := .Site.GetPage "berita" }}
+    {{ if $news }}
+      {{ $pages := where $news.Pages.ByDate.Reverse "Type" "berita" }}
+      {{ if gt (len $pages) 0 }}
+
+        {{ with index $pages 0 }}
+        <a href="{{ .Permalink }}"
+          class="block overflow-hidden transition-all duration-300 bg-white rounded-lg shadow-md hover:shadow-lg hover:border-t-4 hover:border-green-500">
+          <div class="relative">
+            <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="object-cover w-full h-56">
+          </div>
+          <div class="p-4">
+            <div class="flex items-center justify-between mb-2 text-sm text-gray-500">
+              <span class="inline-block px-2 py-1 text-xs font-medium text-green-600 bg-green-100 rounded-full">
+                {{ .Params.category | default "Berita Kalbar" }}
+              </span>
+              <span class="flex items-center gap-1 text-gray-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                {{ .Date.Format "2 January 2006" }}
+              </span>
+            </div>
+            <h3 class="text-base font-semibold leading-snug text-gray-900">
+              {{ .Title }}
+            </h3>
+            <span class="inline-block mt-2 text-sm font-medium text-green-600 hover:underline">
+              Baca Selengkapnya
+            </span>
+          </div>
+        </a>
+        {{ end }}
+
+        <div class="grid grid-cols-1 gap-4 mt-4 md:grid-cols-2">
+          {{ range first 4 (after 1 $pages) }}
+          <a href="{{ .Permalink }}"
+            class="block overflow-hidden transition-all duration-300 bg-white rounded-lg shadow-md hover:shadow-lg hover:border-t-4 hover:border-green-500">
+            <div class="relative">
+              <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="object-cover w-full h-40">
+            </div>
+            <div class="p-3">
+              <div class="flex items-center justify-between mb-1 text-xs text-gray-500">
+                <span class="inline-block px-2 py-1 bg-green-100 text-green-600 rounded-full text-[10px] font-medium">
+                  {{ .Params.category | default "Berita Kalbar" }}
+                </span>
+                <span class="flex items-center gap-1 text-gray-500">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  {{ .Date.Format "2 January 2006" }}
+                </span>
+              </div>
+              <h3 class="text-sm font-semibold leading-snug text-gray-900">
+                {{ .Title }}
+              </h3>
+              <span class="inline-block mt-1 text-xs font-medium text-green-600 hover:underline">
+                Baca Selengkapnya
+              </span>
+            </div>
+          </a>
+          {{ end }}
+        </div>
+
+      {{ else }}
+        <div class="flex items-center justify-center flex-shrink-0 w-full h-56 border-2 border-gray-300 border-dashed rounded-lg bg-gray-50">
+          <svg xmlns="http://www.w3.org/2000/svg"
+                class="text-gray-400 w-14 h-14"
+                fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M4 19.5h16M4 4.5h16M4 9h16M4 14h10" />
+          </svg>
+        </div>
+        <div class="grid grid-cols-1 gap-4 mt-4 md:grid-cols-2">
+          {{ range seq 1 4 }}
+          <div class="flex items-center justify-center flex-shrink-0 w-full h-40 border-2 border-gray-300 border-dashed rounded-lg bg-gray-50">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                class="text-gray-400 w-14 h-14"
+                fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M4 19.5h16M4 4.5h16M4 9h16M4 14h10" />
+            </svg>
+          </div>
+          {{ end }}
+        </div>
+      {{ end }}
+    {{ end }}
+  </div>
+
+  <div class="mt-6 text-center">
+    <a href="{{ .Site.BaseURL }}berita"
+      class="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white transition-colors bg-green-500 border border-transparent rounded-full shadow-sm hover:bg-green-600">
+      Lihat Semua Berita &rarr;
+    </a>
+  </div>
+
+  <div class="flex flex-col items-center mt-10 mb-6">
+    <h2 class="text-3xl font-extrabold tracking-wide text-green-700 uppercase">Agenda</h2>
+    <div class="w-12 h-1 mx-auto mt-1 bg-yellow-400 rounded"></div>
+  </div>
+
+  {{ $agenda := sort .Site.Params.agenda "tanggal" "desc" }}
+  {{ if gt (len $agenda) 0 }}
+    <div class="grid grid-cols-1 gap-4 mt-4 md:grid-cols-2">
+      {{ range first 4 $agenda }}
+      <div
+        class="block w-full p-4 mb-4 overflow-hidden transition-all duration-300 bg-white rounded-lg shadow-md hover:shadow-lg hover:border-t-4 hover:border-green-500">
+        <h3 class="mb-3 text-xl font-semibold text-gray-900 line-clamp-2">
+          {{ .judul }}
+        </h3>
+
+        <div class="flex items-center mb-1 text-sm text-gray-600">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2 text-yellow-400" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M8 7V3m8 4V3m-9 8h10m-12 8h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+          {{ $t:= .tanggal }}
+          <span>{{ time.Format "2 January 2006" $t }}</span>
+        </div>
+
+        <div class="flex items-center mb-1 text-sm text-gray-600">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2 text-green-500" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span>{{ .jamMulai }}</span>
+        </div>
+
+        <div class="flex items-center mb-1 text-sm text-gray-600">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2 text-yellow-400" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M17.657 16.657L13.414 20.9a1 1 0 01-1.414 0L6.343 16.657a8 8 0 1111.314 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          <span>{{ .lokasi }}</span>
+        </div>
+
+        </div>
+      {{ end }}
+    </div>
+  {{ else }}
+    <div class="grid grid-cols-1 gap-4 mt-4 mb-6 md:grid-cols-2">
+      {{ range seq 1 4 }}
+      <div
+        class="flex items-center justify-center flex-shrink-0 w-full h-40 border-2 border-gray-300 border-dashed rounded-lg bg-gray-50">
+        <svg xmlns="http://www.w3.org/2000/svg"
+            class="text-gray-400 w-14 h-14"
+            fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M8 7V3m8 4V3m-9 8h10m-12 8h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+      </div>
+      {{ end }}
+    </div>
+  {{ end }}
+
+  <div class="mt-2 text-center">
+    <a href="{{ .Site.BaseURL }}agenda"
+      class="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white transition-colors bg-green-500 border border-transparent rounded-full shadow-sm hover:bg-green-600">
+      Lihat Semua Agenda &rarr;
+    </a>
+  </div>
+
+</div>
+
+<div class="flex flex-col items-center mt-2">
+  <h2 class="text-3xl font-extrabold tracking-wide text-green-700 uppercase">Gallery</h2>
+  <div class="w-12 h-1 mx-auto mt-1 mb-4 bg-yellow-400 rounded"></div>
+</div>
+
+<div class="relative group">
+  <button onclick="scrollGallery(-1)"
+    class="absolute z-10 flex items-center justify-center w-16 h-16 text-white transition -translate-y-1/2 bg-green-500 rounded-full shadow-lg opacity-0 left-4 top-12 bg-opacity-60 group-hover:opacity-100">
+    <span class="text-4xl font-bold">‹</span>
+  </button>
+
+  <div id="galleryScroll" class="flex gap-4 pb-4 overflow-x-auto scroll-smooth">
+    {{ $directory:= "static/files/gallery" }}
+    {{ if fileExists $directory }}
+      {{ $files := readDir $directory }}
+      {{ $images := slice }}
+      {{ range $files }}
+        {{ if or (strings.HasSuffix .Name ".jpg") (strings.HasSuffix .Name ".jpeg") (strings.HasSuffix .Name ".png") }}
+          {{ $images = $images | append . }}
+        {{ end }}
+      {{ end }}
+
+      {{ if gt (len $images) 0 }}
+        {{ range $images }}
+          <div class="flex-shrink-0 w-64 h-40 overflow-hidden transition bg-white rounded-lg shadow hover:shadow-lg">
+            <img src="files/gallery/{{ .Name }}" alt="{{ .Name }}" class="object-cover w-full h-full">
+          </div>
+        {{ end }}
+      {{ else }}
+        {{ range seq 1 10 }}
+          <div class="flex items-center justify-center flex-shrink-0 w-64 h-40 border-2 border-gray-300 border-dashed rounded-lg bg-gray-50">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 class="w-12 h-12 text-gray-400"
+                 fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M3 7h3l2-2h8l2 2h3a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2zm9 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8z" />
+            </svg>
+          </div>
+        {{ end }}
+      {{ end }}
+    {{else}}
+      <p class="mx-auto mb-4 text-sm text-red-600">Folder "gallery" tidak ditemukan di direktori "files". Silakan buat folder tersebut dan tambahkan gambar untuk gallery.</p>
+    {{ end }}
+  </div>
+
+  <button onclick="scrollGallery(1)"
+    class="absolute z-10 flex items-center justify-center w-16 h-16 text-white transition -translate-y-1/2 bg-green-500 rounded-full shadow-lg opacity-0 right-4 top-12 bg-opacity-60 group-hover:opacity-100">
+    <span class="text-4xl font-bold">›</span>
+  </button>
+
+  <div class="mt-2 text-center">
+    <a href="{{ .Site.BaseURL }}gallery"
+      class="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white transition-colors bg-green-500 border border-transparent rounded-full shadow-sm hover:bg-green-600">
+      Lihat Semua Gallery &rarr;
+    </a>
+  </div>
+</div>
+
+<div class="flex flex-col items-center mt-4">
+  <h2 class="mt-4 text-3xl font-extrabold tracking-wide text-center text-green-700 uppercase">Buletin</h2>
+  <div class="w-12 h-1 mx-auto mt-1 mb-4 bg-yellow-400 rounded"></div>
+</div>
+
+<div class="relative group">
+  <button onclick="scrollBuletin(-1)"
+    class="absolute z-10 flex items-center justify-center w-16 h-16 text-white transition -translate-y-1/2 bg-green-500 rounded-full shadow-lg opacity-0 left-4 top-12 bg-opacity-60 group-hover:opacity-100">
+    <span class="text-4xl font-bold">‹</span>
+  </button>
+
+  <div id="buletinScroll" class="flex gap-4 pb-4 overflow-x-auto scroll-smooth">
+    {{ $buletin := where .Site.RegularPages.ByDate.Reverse "Section" "buletin" }}
+
+    {{ if gt (len $buletin) 0 }}
+      {{ range first 50 $buletin }}
+        <a href="{{ .RelPermalink }}"
+           class="flex-shrink-0 w-64 overflow-hidden transition bg-white rounded-lg shadow h-41 hover:shadow-lg">
+          <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="object-cover w-full h-32">
+          <div class="p-3">
+            <h3 class="text-sm font-semibold text-gray-800 line-clamp-2">{{ .Title }}</h3>
+          </div>
+        </a>
+      {{ end }}
+    {{ else }}
+      {{ range seq 1 10 }}
+        <div class="flex items-center justify-center flex-shrink-0 w-64 h-40 border-2 border-gray-300 border-dashed rounded-lg bg-gray-50">
+          <svg xmlns="http://www.w3.org/2000/svg"
+               class="w-12 h-12 mb-1 text-gray-400"
+               fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M4 19.5h16M4 4.5h16M4 9h16M4 14h10" />
+          </svg>
+        </div>
+      {{ end }}
+    {{ end }}
+  </div>
+
+  <button onclick="scrollBuletin(1)"
+    class="absolute z-10 flex items-center justify-center w-16 h-16 text-white transition -translate-y-1/2 bg-green-500 rounded-full shadow-lg opacity-0 right-4 top-12 bg-opacity-60 group-hover:opacity-100">
+    <span class="text-4xl font-bold">›</span>
+  </button>
+
+  <div class="mt-2 text-center mb-6">
+    <a href="{{ .Site.BaseURL }}buletin"
+      class="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white transition-colors bg-green-500 border border-transparent rounded-full shadow-sm hover:bg-green-600">
+      Lihat Semua Buletin &rarr;
+    </a>
+  </div>
+</div>
+
+
+
+{{- partial "intro.html" . -}}
+{{ end }}
